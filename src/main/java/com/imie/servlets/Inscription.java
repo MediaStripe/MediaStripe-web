@@ -1,15 +1,15 @@
 package com.imie.servlets;
 
 import java.io.IOException;
-import java.util.Date;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.imie.business.InscriptionForm;
+import com.imie.entities.Utilisateur;
 
 /**
  * Servlet implementation class Inscription
@@ -17,43 +17,44 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Inscription")
 public class Inscription extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Inscription() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	private static final String VUE_FORM = "/WEB-INF/jsp/inscriptionForm.jsp";
+
+	private static final String VUE_SUCCESS = "/WEB-INF/jsp/inscriptionSuccess.jsp";
+
+	private InscriptionForm inscriptionForm;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/inscription.jsp") ;
-	    
-	     // inclusion de cette ressource
-	    requestDispatcher.include(request, response) ;
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+	public Inscription() {
+		super();
+		inscriptionForm = new InscriptionForm();
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stubv
-		//doGet(request, response);
-		/*Utilisateur utilisateur = new Utilisateur();
-		utilisateur.setNom(request.getParameter("lastName"));
-		utilisateur.setPrenom(request.getParameter("firstName"));
-		utilisateur.setDateinscription(new Date());
-		utilisateur.setMotdepasse(request.getParameter("userPassword"));
-		utilisateur.setMail(request.getParameter("pseudo"));
-		System.out.println(request.getParameter("userPassword"));
-		
-		UtilisateurService service = new UtilisateurService();
-		service.insert(utilisateur);*/
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		this.getServletContext().getRequestDispatcher(VUE_FORM).forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		final Utilisateur utilisateur = inscriptionForm.creerUtilisateur(request);
+
+		request.setAttribute("form", inscriptionForm);
+		request.setAttribute("utilisateur", utilisateur);
+
+		this.getServletContext().getRequestDispatcher(
+			inscriptionForm.getListeErreurs().isEmpty() ? VUE_SUCCESS : VUE_FORM)
+				.forward(request, response);
 	}
 
 }

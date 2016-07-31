@@ -1,11 +1,14 @@
 package com.imie.servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.imie.contant.VuesEnum;
 
 /**
  * Servlet implementation class Accueil
@@ -15,7 +18,7 @@ public class Accueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	/** Page jsp associée à la servlet. */
-	private static final String VUE = "/WEB-INF/jsp/accueil.jsp";
+	private static final String VUE = VuesEnum.ACCUEIL.val();
        
     /**
      * @see HttpServlet#HttpServlet()

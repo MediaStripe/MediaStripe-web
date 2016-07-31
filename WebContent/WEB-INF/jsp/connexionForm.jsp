@@ -1,6 +1,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 <t:genericpage>
-		<div>
+		<fieldset>
+			<legend>Connexion :</legend>
 			<form action="./Connexion" method="post">
 				<label for="mail">
 					Adresse mail<span class="required">*</span> :
@@ -16,5 +17,5 @@
 				
 				<span class="erreur">${ form.listeErreurs['result'] }</span>
 			</form>
-		</div>
+		</fieldset>
 </t:genericpage>

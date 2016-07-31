@@ -1,6 +1,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 <t:genericpage>
-		<div>
+		<fieldset>
+			<legend>Inscription :</legend>
 			<form action="./Inscription" method="post">
 				<label for="nom">
 					Nom :<span class="required">*</span>
@@ -29,5 +30,5 @@
 				<span class="erreur">${ form.listeErreurs['result'] }</span>
 				<p class="info">${ form.getResultat() }</p>
 			</form>
-		</div>
+		</fieldset>
 </t:genericpage>

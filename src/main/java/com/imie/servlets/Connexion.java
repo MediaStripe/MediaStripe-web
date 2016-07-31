@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.imie.business.ConnexionForm;
+import com.imie.contant.VuesEnum;
 
 /**
  * Servlet implementation class Connexion
@@ -17,9 +18,9 @@ import com.imie.business.ConnexionForm;
 public class Connexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static final String VUE_FORM = "/WEB-INF/jsp/connexionForm.jsp";
+	private static final String VUE_FORM = VuesEnum.CONNEXION.val();
 	
-	private static final String VUE_ACCUEIL = "/WEB-INF/jsp/accueil.jsp";
+	private static final String VUE_ACCUEIL = VuesEnum.ACCUEIL.val();
     
 	private ConnexionForm connexionForm;
 	
@@ -28,7 +29,6 @@ public class Connexion extends HttpServlet {
      */
     public Connexion() {
         super();
-        connexionForm = new ConnexionForm();
     }
 
 	/**
@@ -42,6 +42,12 @@ public class Connexion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*
+		 * Réinitialisation des valeurs en mémoire au cas où il aurait eû des
+		 * erreurs au précédent passage
+		 */
+		connexionForm = new ConnexionForm();
+		
 		connexionForm.connexionUtilisateur(request);
 		
 		if(connexionForm.getListeErreurs().isEmpty()) {

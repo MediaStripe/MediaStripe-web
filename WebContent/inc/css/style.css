@@ -1,32 +1,64 @@
 @CHARSET "UTF-8";
 
+body {
+	background-color: #EDEDED;
+	padding: 0px;
+	margin: 0px;
+}
+
+div {
+	padding: 10px 10px;
+	border: solid 1px black;
+}
+
 #header {
-	margin: 2px 10px;
+	margin-bottom: 10px;
 	font-size: 42px;
 	text-shadow: 0px 0px 12px #FFF;
-	font-style: bold;
 }
 
 #menu {
-	margin: 10px;
-	width: 150px;
+	
+	width: 200px;
+	line-height: 2em;
+}
+
+#menu div {
+	padding: 0px 0px;
 }
 
 #links {
 	text-align: left;
 }
 
-#links a, #links a:hover, #links a:visited {
+#content {
+	
+}
+
+#menu a, #menu a:visited {
 	color: #9E2424;
+}
+
+#menu a:hover {
+	color: #540303;
+}
+
+#menu a, #menu a:hover, #menu a:visited {
 	text-decoration: none;
 }
 
 #header, #menu {
-	padding: 10px 10px;
-	background-image: radial-gradient(#FAB0B0, #E16262);
-	color: #9E2424;
-	border-radius: 10px;
-	border: 5px solid #9E2424;
-	box-shadow: 0px 0px 12px #000;
 	text-align: center;
+}
+
+#menu, #content {
+	display: inline-block;
+	vertical-align: top;
+	
+}
+
+#menu div a img {
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
 }

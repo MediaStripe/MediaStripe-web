@@ -18,7 +18,10 @@ public class Deconnexion extends HttpServlet {
 	
 	/**
 	 * Chaîne correspondant au mappage de la servlet dont sera redirigé
-	 * l'utilisateur après la destruction de sa session en mémoire.
+	 * l'utilisateur après la destruction de sa session en mémoire. <br/>
+	 * <div style="color: red;">/!\ Ici il ne s'agit pas d'une vue JSP mais
+	 * d'une URL mappée vu que la variable sera utilisée via l'instruction
+	 * {@link HttpServletResponse#sendRedirect(String)} /!\</div>
 	 */
 	private static final String VUE = "./Accueil";
        

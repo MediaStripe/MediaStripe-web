@@ -14,23 +14,27 @@
 		<div id="menu">
 			<c:if test="${ !empty sessionScope.utilisateur }">
 				<div>
-					${ session.utilisateur.nom} ${ session.utilisateur.prenom }
+					<a href="./ModificationUtilisateur">
+						${ sessionScope.utilisateur.nom } ${ sessionScope.utilisateur.prenom }
+					</a><br/>
+					<a href="./Deconnexion" ><img src="./inc/images/deconnexion.png" class="menuIcon" alt="D"/> D&eacute;connexion</a>
 				</div>
 			</c:if>
 			<div id="links">
 				<a href="./Accueil">Accueil</a><br/>
 				<c:choose>
 					<c:when test="${ empty sessionScope.utilisateur }">
-					
 						<a href="./Inscription">S'inscrire</a><br/>
-						<a href="./Connexion">Connexion</a>
+						<a href="./Connexion"><img src="./inc/images/connexion.png" class="menuIcon" alt="C"/> Connexion</a>
 					</c:when>
 					<c:otherwise>
-						<a href="./Deconnexion" >D&eacute;connexion</a>
+					
 					</c:otherwise>
 				</c:choose>
 			</div>
 		</div>
-		<jsp:doBody/>
+		<div id="content">
+			<jsp:doBody/>
+		</div>
 	</body>
 </html>

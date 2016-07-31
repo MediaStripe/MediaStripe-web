@@ -10,32 +10,33 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Connexion
  */
-@WebServlet(urlPatterns = {"/Connexion"})
+@WebServlet("/Connexion")
 public class Connexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private static final String VUE_FORM = "/WEB-INF/jsp/connexionForm.jsp";
+	
+	private static final String VUE_ACCUEIL = "/WEB-INF/jsp/accueil.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public Connexion() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		this.getServletContext().getRequestDispatcher(VUE_FORM).forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		this.getServletContext().getRequestDispatcher(VUE_FORM).forward(request, response);
 	}
 
 }

@@ -33,7 +33,9 @@ public class InscriptionForm extends AbstractBussiness {
 	private UtilisateurService utilisateurService = new UtilisateurService();
 	
 	/**
-	 * Procède aux contrôles métier avant d'effectuer l'enregistrement du nouvel utilisateur en base.
+	 * Procède aux contrôles métier avant d'effectuer l'enregistrement du nouvel
+	 * utilisateur en base.
+	 * 
 	 * @param request
 	 * @return
 	 */
@@ -74,7 +76,10 @@ public class InscriptionForm extends AbstractBussiness {
 	
 	/**
 	 * Effectue le contrôle des champs du formulaire d'inscription.
-	 * @param utilisateur L'utilisateur créé à partir des champs du formulaire d'inscription.
+	 * 
+	 * @param utilisateur
+	 *            L'utilisateur créé à partir des champs du formulaire
+	 *            d'inscription.
 	 */
 	private void validationInscription(final Utilisateur utilisateur) {
 		try {
@@ -173,7 +178,8 @@ public class InscriptionForm extends AbstractBussiness {
 	}
 
 	/**
-	 * Effectue la validation du mot de passe de l'utilisateur.
+	 * Effectue la validation du mot de passe de l'utilisateur, puis le hashe
+	 * s'il correspond aux critères de validité.
 	 * 
 	 * @param utilisateur
 	 *            L'utilisateur créé à partir des champs du formulaire
@@ -219,5 +225,8 @@ public class InscriptionForm extends AbstractBussiness {
 			throw new BusinessException(
 					"Le mot de passe utilisateur doit contenir 3 des 4 choix suivants : minuscule, MAJUSCULE, nombre, caractère spécial");
 		}
+		
+		// Hashage du mot de passe
+		utilisateur.setMotdepasse(StringUtil.hashPassword(password));
 	}
 }

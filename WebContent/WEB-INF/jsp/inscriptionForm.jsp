@@ -20,11 +20,13 @@
 				
 				<label for="mail">
 					Adresse email :<span class="required">*</span>
-				</label>&nbsp;<input type="mail" name="mail" value="<c:out value="${ utilisateur.mail }" />" required />
+				</label>&nbsp;
+				<input type="mail" name="mail" value="<c:out value="${ utilisateur.mail }" />" required />
 				<span class="erreur">${ form.listeErreurs['mail'] }</span><br />
 				
 				<label for="password">Mot de passe :<span class="required">*</span>
-				</label>&nbsp;<input type="password" name="password" required />
+				</label>&nbsp;
+				<input type="password" name="password" required />
 				<span class="erreur">${ form.listeErreurs['password'] }</span><br />
 				
 				<input type="reset" value="Effacer"/>&nbsp;

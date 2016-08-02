@@ -22,14 +22,13 @@ public class ModificationUtilisateurForm extends AbstractBussiness {
 	public void modifierUtilisateur(final HttpServletRequest request) {
 		final Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
 		
-		final String nouveauNom = (String) request.getAttribute("nom");
-		final String nouveauPrenom = (String) request.getAttribute("prenom");
-		final String nouveauMail = (String) request.getAttribute("mail");
+		final String nouveauNom = getValeurChamp(request, NOM.val());
+		final String nouveauPrenom = getValeurChamp(request, PRENOM.val());
+		final String nouveauMail = getValeurChamp(request, MAIL.val());
 		
 		if(!utilisateur.getNom().equals(nouveauNom)) {
 			try {
 				UtilisateurControls.validationNom(nouveauNom);
-				utilisateur.setPrenom(nouveauPrenom);
 			} catch (final BusinessException be) {
 				setErreur(NOM.val(), be.getMessage());
 			}
@@ -38,7 +37,6 @@ public class ModificationUtilisateurForm extends AbstractBussiness {
 		if(!utilisateur.getPrenom().equals(nouveauPrenom)) {
 			try {
 				UtilisateurControls.validationPrenom(nouveauPrenom);
-				utilisateur.setPrenom(nouveauPrenom);
 			} catch (final BusinessException be) {
 				setErreur(PRENOM.val(), be.getMessage());
 			}
@@ -52,6 +50,9 @@ public class ModificationUtilisateurForm extends AbstractBussiness {
 				: "Échec de la mise à jour des informations personnelles.";
 		
 		if(listeErreurs.isEmpty()) {
+			utilisateur.setNom(nouveauNom);
+			utilisateur.setPrenom(nouveauPrenom);
+			utilisateur.setMail(nouveauMail);
 			utilisateurService.update(utilisateur);
 		}
 	}
@@ -76,8 +77,6 @@ public class ModificationUtilisateurForm extends AbstractBussiness {
 			 */
 			setErreur("result", "L'adresse mail correspond déjà à un utilisateur.");
 		} catch(final NoResultException ex) {
-			// On modifie l'adresse mail si elle n'est pas trouvée en base.
-			utilisateur.setMail(mail);
 		}
 	}
 }

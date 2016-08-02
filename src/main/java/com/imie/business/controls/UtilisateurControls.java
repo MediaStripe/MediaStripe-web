@@ -29,7 +29,7 @@ public final class UtilisateurControls {
 		}
 		if (StringUtil.containNumber(nom) || StringUtil.containSpecialChar(nom)) {
 			throw new BusinessException(
-					"Le prénom d'utilisateur ne doit ni contenir de chiffres ni de caractères spéciaux.");
+					"Le nom d'utilisateur ne doit ni contenir de chiffres ni de caractères spéciaux.");
 		}
 	}
 

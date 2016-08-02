@@ -60,11 +60,10 @@ public class ModificationUtilisateur extends HttpServlet {
 
 		request.setAttribute("form", modificationUtilisateurForm);
 
+		
 		this.getServletContext().getRequestDispatcher(
 				modificationUtilisateurForm.getListeErreurs().isEmpty() ? VUE_SUCCESS : VUE_FORM)
 				.forward(request, response);
-		
-		this.getServletContext().getRequestDispatcher(VUE_FORM).forward( request, response );
 	}
 
 }

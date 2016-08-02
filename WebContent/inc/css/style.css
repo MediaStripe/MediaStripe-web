@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 body {
-	background-color: #EDEDED;
+	background-color: #F9F9F9;
 	padding: 0px;
 	margin: 0px;
 }
@@ -21,6 +21,14 @@ div {
 	
 	width: 200px;
 	line-height: 2em;
+}
+
+.erreur {
+	color: red;
+}
+
+#header, #menu, #content {
+	background-color: white;
 }
 
 #menu div {
@@ -54,7 +62,6 @@ div {
 #menu, #content {
 	display: inline-block;
 	vertical-align: top;
-	
 }
 
 #menu div a img {

@@ -16,6 +16,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 
+import com.imie.business.controls.UtilisateurControls;
 import com.imie.entities.Utilisateur;
 import com.imie.exceptions.BusinessException;
 import com.imie.services.impl.UtilisateurService;
@@ -45,8 +46,9 @@ public class InscriptionForm extends AbstractBussiness {
 		utilisateur.setPrenom(getValeurChamp(request, PRENOM.val()));
 		utilisateur.setMail(getValeurChamp(request, MAIL.val()));
 		utilisateur.setMotdepasse(getValeurChamp(request, PASSWORD.val()));
+		final String validationMotdepasse = getValeurChamp(request, "verificationMotdepasse");
 
-		validationInscription(utilisateur);
+		validationInscription(utilisateur, validationMotdepasse);
 		
 		if(listeErreurs.isEmpty()) {
 			try {
@@ -72,8 +74,9 @@ public class InscriptionForm extends AbstractBussiness {
 	 * @param utilisateur
 	 *            L'utilisateur créé à partir des champs du formulaire
 	 *            d'inscription.
+	 * @param validationMotdepasse 
 	 */
-	void validationInscription(final Utilisateur utilisateur) {
+	void validationInscription(final Utilisateur utilisateur, final String validationMotdepasse) {
 		try {
 			validationNom(utilisateur.getNom());
 		} catch (final BusinessException be) {
@@ -92,10 +95,14 @@ public class InscriptionForm extends AbstractBussiness {
 			setErreur(MAIL.val(), be.getMessage());
 		}
 
-		try {
-			validationPassword(utilisateur, utilisateur.getMotdepasse());
-		} catch (final BusinessException be) {
-			setErreur(PASSWORD.val(), be.getMessage());
+		if(utilisateur.getMotdepasse().equals(validationMotdepasse)){
+			try {
+				validationPassword(utilisateur, utilisateur.getMotdepasse());
+			} catch (final BusinessException be) {
+				setErreur(PASSWORD.val(), be.getMessage());
+			}
+		} else {
+			setErreur(PASSWORD.val(), "Les deux mots de passe ne correspondent pas.");
 		}
 	}
 }

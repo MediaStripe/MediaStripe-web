@@ -14,11 +14,12 @@ public enum VuesEnum {
 	DECONNEXION("deconnexion"),
 	/** Inscription, création d'utilisateurs. */
 	INSCRIPTION("inscriptionForm"),
+	/** Gestion du compte utilisateur. */
+	GESTION_COMPTE("gestionCompte"),
 	/** Modification des données de l'utilisateur. */
 	MODIF_UTILISATEUR("modificationUtilisateur"),
 	/** Modification du mot de passe d'un utilisateur. */
-	MODIF_MOTDEPASSE("modificationMotDePasse"),
-
+	MODIF_MOTDEPASSE("modificationMotdepasse"),
 	;
 
 	/** Le nom de la page JSP correspondant à la vue. */
@@ -27,7 +28,7 @@ public enum VuesEnum {
 	/**
 	 * Initialise l'énumération à partir de la donnée en paramètre en y
 	 * préfixant le chemin vers les pages JSP et en sufixant avec l'extension
-	 * {@code .JSP}.
+	 * {@code .jsp}.
 	 * 
 	 * @param value
 	 */

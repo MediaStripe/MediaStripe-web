@@ -14,7 +14,7 @@
 		<div id="menu">
 			<c:if test="${ !empty sessionScope.utilisateur }">
 				<div>
-					<a href="./ModificationUtilisateur">
+					<a href="./GestionCompte">
 						${ sessionScope.utilisateur.nom } ${ sessionScope.utilisateur.prenom }
 					</a><br/>
 					<a href="./Deconnexion" ><img src="./inc/images/deconnexion.png" class="menuIcon" alt="D"/> D&eacute;connexion</a>

@@ -13,12 +13,26 @@ import com.imie.entities.Utilisateur;
 import com.imie.exceptions.BusinessException;
 import com.imie.services.impl.UtilisateurService;
 
+/**
+ * Traitement métier relatif à la modification d'informations personnelles d'un
+ * utilisateur.
+ * 
+ * @author takiguchi
+ *
+ */
 public class ModificationUtilisateurForm extends AbstractBussiness {
 
 	// TODO : Corriger l'injection via @EJB
 	@EJB
 	private UtilisateurService utilisateurService = new UtilisateurService();
 	
+	/**
+	 * Effectue les contrôles de saisie puis effectue la modification des
+	 * informations personnelles de l'utilisateur s'il n'y a pas eu d'erreur
+	 * lors des contrôles.
+	 * 
+	 * @param request
+	 */
 	public void modifierUtilisateur(final HttpServletRequest request) {
 		final Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
 		
@@ -58,8 +72,11 @@ public class ModificationUtilisateurForm extends AbstractBussiness {
 	}
 	
 	/**
-	 * Effectue le contrôle de l'adresse mail saisie et vérifie que cette dernière n'est pas utilisée par un autre utilisateur.
-	 * @param mail La nouvelle adresse mail saisie.
+	 * Effectue le contrôle de l'adresse mail saisie et vérifie que cette
+	 * dernière n'est pas utilisée par un autre utilisateur.
+	 * 
+	 * @param mail
+	 *            La nouvelle adresse mail saisie.
 	 */
 	private void validationMail(final Utilisateur utilisateur, final String mail) {
 		try {

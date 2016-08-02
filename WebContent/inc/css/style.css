@@ -1,5 +1,6 @@
 @CHARSET "UTF-8";
 
+/* --------- Éléments html purs, seuls ---------- */
 body {
 	background-color: #F9F9F9;
 	padding: 0px;
@@ -11,6 +12,20 @@ div {
 	border: solid 1px black;
 }
 
+label {
+/* 	display: block; */
+	width: 200px;
+	float: left;
+}
+
+/* --------- Groupes d'éléments html purs ---------- */
+
+/* --------- Classes pures, seules ---------- */
+.erreur, .required {
+	color: red;
+}
+
+/* --------- Éléments avec id, seuls ---------- */
 #header {
 	margin-bottom: 10px;
 	font-size: 42px;
@@ -23,24 +38,38 @@ div {
 	line-height: 2em;
 }
 
-.erreur {
-	color: red;
-}
-
-#header, #menu, #content {
-	background-color: white;
-}
-
-#menu div {
-	padding: 0px 0px;
-}
-
 #links {
 	text-align: left;
 }
 
 #content {
 	
+}
+
+/* --------- Groupe d'éléments avec id ---------- */
+
+#header, #menu, #content {
+	background-color: white;
+}
+
+#header, #menu {
+	text-align: center;
+}
+
+#menu, #content {
+	display: inline-block;
+	vertical-align: top;
+}
+
+/* --------- Menu latéral gauche ---------- */
+#menu div {
+	padding: 0px 0px;
+}
+
+#menu div a img {
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
 }
 
 #menu a, #menu a:visited {
@@ -53,19 +82,4 @@ div {
 
 #menu a, #menu a:hover, #menu a:visited {
 	text-decoration: none;
-}
-
-#header, #menu {
-	text-align: center;
-}
-
-#menu, #content {
-	display: inline-block;
-	vertical-align: top;
-}
-
-#menu div a img {
-	width: 20px;
-	height: 20px;
-	vertical-align: middle;
 }

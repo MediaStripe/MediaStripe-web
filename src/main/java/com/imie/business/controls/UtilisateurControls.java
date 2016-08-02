@@ -123,6 +123,7 @@ public final class UtilisateurControls {
 					"Le mot de passe utilisateur doit contenir 3 des 4 choix suivants : minuscule, MAJUSCULE, nombre, caractère spécial");
 		}
 		
+		// TODO : exporter ce traitement métier ailleurs
 		// Hashage du mot de passe
 		utilisateur.setMotdepasse(StringUtil.hashPassword(password));
 	}

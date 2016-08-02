@@ -35,7 +35,7 @@ final HttpSession session = request.getSession();
 		
 		/* Redirection de l'utilisateur s'il n'est pas connecté. */
 		if(session.isNew()) {
-			response.sendRedirect(VuesEnum.ACCUEIL.val());
+			response.sendRedirect(VuesEnum.CONNEXION.val());
 		}
 		
 		this.getServletContext().getRequestDispatcher(VUE).forward( request, response );

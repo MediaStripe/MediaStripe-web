@@ -40,7 +40,7 @@ public class ModificationUtilisateur extends HttpServlet {
 
 		/* Redirection de l'utilisateur s'il n'est pas connecté. */
 		if(session.isNew()) {
-			response.sendRedirect(VuesEnum.ACCUEIL.val());
+			response.sendRedirect(VuesEnum.CONNEXION.val());
 		}
 		
 		this.getServletContext().getRequestDispatcher(VUE_FORM).forward( request, response );

@@ -80,7 +80,7 @@ public final class StringUtil {
 	 * @return Le mot de passe hashé.
 	 */
 	public static String hashPassword(final String password) {
-		return BCrypt.hashpw(password, BCrypt.gensalt(15));
+		return BCrypt.hashpw(password, BCrypt.gensalt(10));
 	}
 
 	/**

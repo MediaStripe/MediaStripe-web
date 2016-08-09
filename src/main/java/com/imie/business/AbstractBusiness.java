@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.imie.util.StringUtil;
 
-public abstract class AbstractBussiness {
+public abstract class AbstractBusiness {
 	/** Résultat du traitement effectué. */
 	protected String resultat;
 	

@@ -20,7 +20,7 @@ import com.imie.services.impl.UtilisateurService;
  * @author takiguchi
  *
  */
-public class ModificationUtilisateurForm extends AbstractBussiness {
+public class ModificationUtilisateurForm extends AbstractBusiness {
 
 	// TODO : Corriger l'injection via @EJB
 	@EJB

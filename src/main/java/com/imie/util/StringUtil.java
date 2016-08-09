@@ -80,7 +80,21 @@ public final class StringUtil {
 	 * @return Le mot de passe hashé.
 	 */
 	public static String hashPassword(final String password) {
-		return BCrypt.hashpw(password, BCrypt.gensalt(10));
+		return hashString(password, 10);
+	}
+
+	/**
+	 * Hashe la chaîne passée en paramètre.
+	 * 
+	 * @param string
+	 *            La chaîne à hasher.
+	 * @param salt
+	 *            Valeur du sallage, plus cette valeur est grande, plus la
+	 *            chaîne sera hashée et plus le hashage durera longtemps.
+	 * @return La chaîne hashée.
+	 */
+	public static String hashString(final String string, final int salt) {
+		return BCrypt.hashpw(string, BCrypt.gensalt(salt));
 	}
 
 	/**

@@ -20,6 +20,8 @@ public enum VuesEnum {
 	MODIF_UTILISATEUR("modificationUtilisateur"),
 	/** Modification du mot de passe d'un utilisateur. */
 	MODIF_MOTDEPASSE("modificationMotdepasse"),
+	/** Upload d'un média. */
+	UPLOAD("upload"),
 	;
 
 	/** Le nom de la page JSP correspondant à la vue. */

@@ -12,7 +12,7 @@ import com.imie.entities.Utilisateur;
 import com.imie.services.impl.UtilisateurService;
 import com.imie.util.StringUtil;
 
-public class ConnexionForm extends AbstractBussiness {
+public class ConnexionForm extends AbstractBusiness {
 	
 	private static final String RESULT = "result";
 	

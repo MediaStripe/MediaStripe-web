@@ -17,7 +17,7 @@ import com.imie.util.StringUtil;
  * @author takiguchi
  *
  */
-public class ModificationMotdepasseForm extends AbstractBussiness {
+public class ModificationMotdepasseForm extends AbstractBusiness {
 
 	private static final String ATT_MOTDEPASSE_ACTUEL = "actuelMotdepasse";
 	

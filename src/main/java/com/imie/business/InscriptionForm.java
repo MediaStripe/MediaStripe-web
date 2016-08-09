@@ -27,7 +27,7 @@ import com.imie.services.impl.UtilisateurService;
  * @author takiguchi
  *
  */
-public class InscriptionForm extends AbstractBussiness {
+public class InscriptionForm extends AbstractBusiness {
 	// TODO : Corriger l'injection via @EJB
 	@EJB
 	private UtilisateurService utilisateurService = new UtilisateurService();

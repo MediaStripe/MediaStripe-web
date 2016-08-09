@@ -1,7 +1,5 @@
 package com.imie.util;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.regex.Pattern;
 
 public final class RegexUtil {
@@ -34,5 +32,9 @@ public final class RegexUtil {
 	 */
 	public static boolean isEmail(final String chaine) {
 		return EMAIL_PATTERN.matcher(chaine).find();
+	}
+	
+	public static String replaceSequence(final String chaine, final String regex, final String sequenceRemplacante) {
+		return Pattern.compile(regex).matcher(chaine).replaceAll(sequenceRemplacante);
 	}
 }

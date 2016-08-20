@@ -5,15 +5,21 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.regex.Pattern;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
-import org.mindrot.jbcrypt.BCrypt;
-
+import com.imie.contant.ApplicationProperties;
+import com.imie.exceptions.BusinessException;
 import com.imie.services.impl.FichierService;
 import com.imie.util.RegexUtil;
 import com.imie.util.StringUtil;
@@ -23,6 +29,18 @@ public class UploadForm extends AbstractBusiness {
 	private static final int TAILLE_TAMPON = 10240;
 
 	private static final String REGEX_CARACTERES_INTERDITS = "[\\.\\\\\\/]";
+	
+	private static final Map<String, List<String>> listeExtensions;
+	
+	static {
+		listeExtensions = new HashMap<String, List<String>>();
+		listeExtensions.put("video", new LinkedList<String>());
+		listeExtensions.get("video").addAll(Arrays.asList(new String[] { "avi", "wmv", "flv", "mp4" }));
+		listeExtensions.put("musique", new LinkedList<String>());
+		listeExtensions.get("musique").addAll(Arrays.asList(new String[] { "mp3", "wav", "ogg" }));
+		listeExtensions.put("photo", new LinkedList<String>());
+		listeExtensions.get("photo").addAll(Arrays.asList(new String[] { "png", "jpg", "jpeg", "gif" }));
+	}
 
 	// TODO : Corriger l'injection via @EJB
 	@EJB
@@ -47,13 +65,25 @@ public class UploadForm extends AbstractBusiness {
 			final String extension = nomFichier.substring(nomFichier.lastIndexOf(".") + 1);
 
 			try {
+				validerTypeFichier(typeFichier, extension);
+			} catch(final BusinessException ex) {
+				setErreur("typeFichier", ex.getMessage());
+			}
+			
+			try {
 				ecrireFichier(part, genererNomFichier(titre).concat(".").concat(extension),
-						"/opt/MediaStripe/fichiers/tmp/");
+						ApplicationProperties.get("media.files.repository"));
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
 		}
 
+	}
+	
+	private void validerTypeFichier(final String typeFichier, final String extension) throws BusinessException {
+		if(!(listeExtensions.containsKey(typeFichier) && listeExtensions.get(typeFichier).contains(extension))) {
+			throw new BusinessException("Le type du fichier n'est pas pris en compte.");
+		}
 	}
 	
 	/**

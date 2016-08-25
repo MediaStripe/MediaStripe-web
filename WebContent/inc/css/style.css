@@ -56,7 +56,7 @@ label {
 	text-align: center;
 }
 
-#menu, #content {
+#menu, #content, #chat {
 	display: inline-block;
 	vertical-align: top;
 }

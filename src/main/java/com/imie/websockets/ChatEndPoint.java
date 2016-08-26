@@ -1,6 +1,8 @@
 package com.imie.websockets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -12,19 +14,29 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.imie.entities.Utilisateur;
-import com.sun.net.httpserver.HttpsConfigurator;
 
 @ServerEndpoint(value = "/testSocket",configurator = GetHttpSessionConfigurator.class)
 public class ChatEndPoint {
 
-	private Map<String,ChatUser> mapChatUsers;
 	private static CopyOnWriteArrayList<Session> userSessions;
-	
+	private static Map<String, HttpSession> userHttpSessions;
 
 	
 	@OnOpen
 	public void onOpen(Session session, EndpointConfig config){
+		if(ChatEndPoint.userSessions == null)
+			userSessions = new CopyOnWriteArrayList<Session>();
+		if(ChatEndPoint.userHttpSessions == null)
+			userHttpSessions = new HashMap<String,HttpSession>();
+		
+		
+		
 		HttpSession userSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
 		System.out.println(userSession.getAttribute("utilisateur"));
 		if(userSession.getAttribute("utilisateur")!= null){
@@ -32,11 +44,26 @@ public class ChatEndPoint {
 			session.getUserProperties().put("pseudo", user.getPrenom()+" "+user.getNom());
 		}
 		
-		if(this.userSessions == null){
-			userSessions = new CopyOnWriteArrayList<Session>();
-			
-		}
+		
+		
 		userSessions.add(session);
+		userHttpSessions.put(session.getId(),userSession);
+		
+		
+		try {
+			if(userSession.getAttribute("tchatSessionHistory") != null){
+				@SuppressWarnings("unchecked")
+				ArrayList<String>messageHistory = (ArrayList<String>)userSession.getAttribute("tchatSessionHistory");
+				JsonObject json = new JsonObject();
+				json.addProperty("type", "messageHistory");
+				json.add("messageList", new Gson().toJsonTree(messageHistory).getAsJsonArray());
+				session.getBasicRemote().sendText(json.toString());
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		System.out.println("Utilisateurs connectés :" + userSessions.size());
 	}
 	
@@ -51,26 +78,26 @@ public class ChatEndPoint {
 			}
 		}else{
 			for(Session session:userSessions){
-				session.getBasicRemote().sendText(s.getUserProperties().get("pseudo") +" : "+message);
+				//Creation et envoi du json contenant le message
+				JsonObject json = new JsonObject();
+				json.addProperty("type", "message");
+				json.addProperty("value",s.getUserProperties().get("pseudo") +" : "+message);
+				session.getBasicRemote().sendText(json.toString());
+				
+				//Ajout du message dans l'historique de la session
+				HttpSession httpSession = userHttpSessions.get(s.getId());
+				if(httpSession.getAttribute("tchatSessionHistory") == null)
+					httpSession.setAttribute("tchatSessionHistory", new ArrayList<String>());
+				@SuppressWarnings("unchecked")
+				ArrayList<String> messageHistoryList = (ArrayList<String>)httpSession.getAttribute("tchatSessionHistory");
+				messageHistoryList.add(s.getUserProperties().get("pseudo") +" : "+message);
+				
 			}
-		}
-		//System.out.println("message : " + message);
-		
+		}		
 	}
 	
 	@OnClose
 	public void removeSession(Session s){
-		String pseudo = (String)s.getUserProperties().get("pseudo");
 		userSessions.remove(s);
-		/*for(Session session : userSessions){
-				try {
-					session.getBasicRemote().sendText(pseudo+" a quitté le tchat");
-				} catch (IOException e) {
-					
-					e.printStackTrace();
-				}
-			
-		}*/
-		
 	}
 }

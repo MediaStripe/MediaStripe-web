@@ -13,10 +13,8 @@ import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 
-import com.imie.business.controls.UtilisateurControls;
 import com.imie.entities.Utilisateur;
 import com.imie.exceptions.BusinessException;
 import com.imie.services.impl.UtilisateurService;

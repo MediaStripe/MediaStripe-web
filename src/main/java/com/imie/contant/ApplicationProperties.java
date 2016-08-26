@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class ApplicationProperties {
 	private static Map<String, String> properties;
+	
+	public static final String EXTENSION_SEPARATOR = ",";
 
 	/**
 	 * Retourne la propriété correspondant au nom passé en paramètre.<br/>
@@ -29,5 +31,9 @@ public class ApplicationProperties {
 	// TODO : charger les propriétés depuis un fichier de configuration
 	private static void load() {
 		properties.put("media.files.repository", "/opt/MediaStripe/files/");
+		
+		properties.put("media.extensions.videos", "avi,wmv,flv,mp4");
+		properties.put("media.extensions.musiques", "mp3,wav,ogg");
+		properties.put("media.extensions.photos", "png,jpg,jpeg,gif");
 	}
 }

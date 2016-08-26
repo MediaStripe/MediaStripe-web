@@ -15,12 +15,15 @@
 				<label for="fichier">
 					Emplacement du fichier<t:required/> :
 				</label>&nbsp;<input type="file" name="fichier" id="fichier" required /><br/>
+				<span class="erreur">${ form.listeErreurs['fichier'] }</span><br />
 
 				<label for="titre">Titre<t:required/> :</label>&nbsp;
 				<input type="text" name="titre" id="titre" value="<c:out value="${ titre }"/>" required /><br/>
+				<span class="erreur">${ form.listeErreurs['titre'] }</span><br />
 
 				<label for="description">Description<t:required/> :</label>&nbsp;
 				<input type="text" name="description" id="description" value="<c:out value="${ description }"/>" required /><br/>
+				<span class="erreur">${ form.listeErreurs['description'] }</span><br />
 
 				<label for="publique">Publique<t:required/> :</label>&nbsp;
 				<input type="checkbox" name="publique" id="publique" value="true" checked /><br/>
@@ -28,18 +31,22 @@
 				<div id="filmForm" style="display: none;">
 					<label for="realisateur">R&eacute;alisateur<t:required/> :</label>
 					<input type="text" name="realisateur" id="realisateur" value="<c:out value="${ realisateur }"/>" /><br/>
+					<span class="erreur">${ form.listeErreurs['realisateur'] }</span><br />
 				</div>
 				<div id="episodeForm" style="display: none;">
 					<label for="numeroEpisode">Num&eacute;ro de l'&eacute;pisode<t:required/> :</label>
 					<input type="text" name="numeroEpisode" id="numeroEpisode" value="<c:out value="${ numeroEpisode }"/>" /><br/>
+					<span class="erreur">${ form.listeErreurs['numeroEpisode'] }</span><br />
 					
 					<label for="serieEpisode">S&eacute;rie de l'&eacute;pisode<t:required/> :</label>
 					<input type="text" name="serieEpisode" id="serieEpisode" value="<c:out value="${ serieEpisode }"/>" /><br/>
+					<span class="erreur">${ form.listeErreurs['serieEpisode'] }</span><br />
 				</div>
 				
 				<input type="submit" value="Valider"/><br/>
 				
 				<span class="erreur">${ form.listeErreurs['result'] }</span>
+				<p class="info">${ form.getResultat() }</p>
 			</form>
 		</fieldset>
 		<script type="text/javascript">

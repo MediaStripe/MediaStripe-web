@@ -24,7 +24,7 @@ public class Upload extends HttpServlet {
 
 	private static final String VUE_SUCCESS = VuesEnum.ACCUEIL.val();
 
-	private UploadForm form;
+	private UploadForm uploadForm;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -53,9 +53,11 @@ public class Upload extends HttpServlet {
 		 * Réinitialisation des valeurs en mémoire au cas où il aurait eû des
 		 * erreurs au précédent passage
 		 */
-		form = new UploadForm();
+		uploadForm = new UploadForm();
 
-		form.ajouterFichier(request);
+		uploadForm.ajouterFichier(request);
+		
+		request.setAttribute("form", uploadForm);
 
 		this.getServletContext().getRequestDispatcher(VUE_FORM)
 				.forward(request, response);

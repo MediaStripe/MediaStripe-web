@@ -1,52 +1,33 @@
 package com.imie.contant;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 public class ApplicationProperties {
 	private static Map<String, String> properties;
-	
+
+	/**
+	 * Retourne la propriété correspondant au nom passé en paramètre.<br/>
+	 * Si la propriété n'existe pas, la fonction retourne {@code null}.
+	 * 
+	 * @param property
+	 *            Le nom de la propriété voulue.
+	 * @return La valeur de la propriété, ou {@code null} si elle n'existe pas.
+	 */
 	public static String get(final String property) {
-		if(properties == null) {
-//			properties = load();
+		if (properties == null) {
+			properties = new HashMap<String, String>();
 			load();
 		}
 		return properties.get(property);
 	}
-	
-//	public static String get(final String property) {
-//		if(properties == null) {
-//			properties = load();
-//		}
-//		return properties.getProperty(property);
-//	}
 
-//	private static Properties properties;
-	
+	/**
+	 * Charge les propriétés de l'application depuis les fichiers de
+	 * configuration.
+	 */
+	// TODO : charger les propriétés depuis un fichier de configuration
 	private static void load() {
-		final Properties properties = new Properties();
-		
-		final InputStream input = ApplicationProperties.class.getResourceAsStream("/WEB-INF/config/application.properties");
-
-		try {
-			properties.load(input);
-			
-			for (Object key : properties.keySet()) {
-				final String clef = (String) key;
-				ApplicationProperties.properties.put(clef, properties.getProperty(clef));
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				input.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
+		properties.put("media.files.repository", "/opt/MediaStripe/files/");
 	}
 }

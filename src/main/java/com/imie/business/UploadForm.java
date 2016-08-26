@@ -6,8 +6,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,8 +26,6 @@ public class UploadForm extends AbstractBusiness {
 	/** Taille du tampon pour le transfer du fichier depuis le client. */
 	private static final int TAILLE_TAMPON = 10240;
 
-	private static final String REGEX_CARACTERES_INTERDITS = "[\\.\\\\\\/]";
-	
 	private static final Map<String, List<String>> listeExtensions;
 	
 	static {

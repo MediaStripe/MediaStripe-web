@@ -61,6 +61,10 @@ label {
 	vertical-align: top;
 }
 
+#filmForm, #episodeForm {
+	display: none;
+}
+
 /* --------- Menu latéral gauche ---------- */
 #menu div {
 	padding: 0px 0px;

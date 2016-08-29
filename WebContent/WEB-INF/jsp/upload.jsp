@@ -18,22 +18,31 @@
 				<span class="erreur">${ form.listeErreurs['fichier'] }</span><br />
 
 				<label for="titre">Titre<t:required/> :</label>&nbsp;
-				<input type="text" name="titre" id="titre" value="<c:out value="${ titre }"/>" required /><br/>
+				<input type="text" name="titre" id="titre" value="<c:out value="${ fichier.titre }"/>" required /><br/>
 				<span class="erreur">${ form.listeErreurs['titre'] }</span><br />
 
 				<label for="description">Description<t:required/> :</label>&nbsp;
-				<input type="text" name="description" id="description" value="<c:out value="${ description }"/>" required /><br/>
+				<textarea name="description" id="description" placeholder="La description du fichier." required ><c:out value="${ description }"/></textarea><br/>
 				<span class="erreur">${ form.listeErreurs['description'] }</span><br />
 
 				<label for="publique">Publique<t:required/> :</label>&nbsp;
-				<input type="checkbox" name="publique" id="publique" value="true" checked /><br/>
+				<input type="checkbox" name="publique" id="publique" value="true" <c:if test="${ fichier.publique }" >checked</c:if> /><br/>
 				
-				<div id="filmForm" style="display: none;">
+				<label for="themePrincipal">Th&egrave;me principal :</label>
+				<input type="text" name="themePrincipal" id="themePrincipal" value="<c:out value="${ fichier.mainTheme }" />" placeholder="Le th&egrave;me principal du fichier." /><br/>
+				
+				<label for="motsClefs">Mots clefs :</label>
+				<input type="text" name="motsClefs" id="motsClefs" value="<c:out value="${ fichier.motsClefs }" />" placeholder="S&eacute;parez les mots clefs par des points-virgule" /><br/>
+
+			<%-- 				TODO : Tester le comportement de "instanceOf" en JSP pour récupérer les valeurs saisies en cas d'erreur --%>
+			<%-- 				test:<c:if test="${ fichier instanceof video }">Le fichier est une vidéo</c:if> --%>
+				
+				<div id="filmForm">
 					<label for="realisateur">R&eacute;alisateur<t:required/> :</label>
 					<input type="text" name="realisateur" id="realisateur" value="<c:out value="${ realisateur }"/>" /><br/>
 					<span class="erreur">${ form.listeErreurs['realisateur'] }</span><br />
 				</div>
-				<div id="episodeForm" style="display: none;">
+				<div id="episodeForm">
 					<label for="numeroEpisode">Num&eacute;ro de l'&eacute;pisode<t:required/> :</label>
 					<input type="text" name="numeroEpisode" id="numeroEpisode" value="<c:out value="${ numeroEpisode }"/>" /><br/>
 					<span class="erreur">${ form.listeErreurs['numeroEpisode'] }</span><br />

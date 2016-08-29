@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,9 +25,13 @@ import com.imie.entities.Fichier;
 import com.imie.entities.Film;
 import com.imie.entities.Musique;
 import com.imie.entities.Photo;
+import com.imie.entities.Tag;
+import com.imie.entities.Utilisateur;
 import com.imie.entities.Video;
 import com.imie.exceptions.BusinessException;
 import com.imie.services.impl.FichierService;
+import com.imie.services.impl.TagService;
+import com.imie.services.impl.UtilisateurService;
 import com.imie.util.RegexUtil;
 import com.imie.util.StringUtil;
 
@@ -35,6 +40,7 @@ public class UploadForm extends AbstractBusiness {
 	private static final int TAILLE_TAMPON = 10240;
 
 	private static final Map<String, List<String>> listeExtensions;
+	private static final String TAG_SEPARATOR = ";";
 
 	static {
 		listeExtensions = new HashMap<String, List<String>>();
@@ -62,14 +68,25 @@ public class UploadForm extends AbstractBusiness {
 	@EJB
 	private FichierService fichierService = new FichierService();
 
+	// TODO : Corriger l'injecion via @EJB
+	@EJB
+	private UtilisateurService utilisateurService = new UtilisateurService();
+
+	// TODO : Corriger l'injecion via @EJB
+	@EJB
+	private TagService tagService = new TagService();
+
 	/**
 	 * Procède aux contrôles métier avant d'effectuer l'enregistrement du
 	 * nouveau media en base.
 	 * 
 	 * @param request
 	 */
-	public void ajouterFichier(final HttpServletRequest request) {
+	public Fichier ajouterFichier(final HttpServletRequest request) {
+		// Création d'un fichier vide;
+		Fichier fichier = new Fichier();
 
+		// Récupération du fichier envoyé
 		Part part = null;
 		try {
 			part = request.getPart("fichier");
@@ -80,9 +97,26 @@ public class UploadForm extends AbstractBusiness {
 		}
 
 		if (part != null) {
+			// Récupération des données du formulaire
 			final String typeFichier = request.getParameter("typeFichier");
 			final String titre = request.getParameter("titre");
 			final String description = request.getParameter("description");
+			final String themePrincipal = request
+					.getParameter("themePrincipal");
+			final String motsClefs = request.getParameter("motsClefs");
+
+			// Construction du fichier en fonction de son type
+			fichier = buildFichier(typeFichier);
+
+			// Affectation des valeurs du formulaire au fichier
+			fichier.setTitre(titre);
+			fichier.setDescription(description);
+
+			// Construction du thème principal et des mots clefs du fichier
+			// (peut etre fait après les controles)
+			alimenterTags(fichier, themePrincipal, motsClefs);
+
+			// Définition des données du fichier envoyé
 			final String nomFichier = part.getSubmittedFileName();
 			final String extension = nomFichier.substring(nomFichier
 					.lastIndexOf(".") + 1);
@@ -94,19 +128,18 @@ public class UploadForm extends AbstractBusiness {
 			}
 
 			if (listeErreurs.isEmpty()) {
-				final String nomFichierSortie = genererNomFichier(titre)
-						.concat(".").concat(extension);
+				final String nomFichierSortie = genererNomFichier(titre) + "."
+						+ extension;
 
 				ecrireFichier(part, typeFichier, nomFichierSortie,
 						ApplicationProperties.get("media.files.repository"));
 
 				if (listeErreurs.isEmpty()) {
-					final Fichier fichier = buildFichier(typeFichier);
-
-					fichier.setTitre(titre);
-					fichier.setDescription(description);
 					fichier.setDatecreation(new Timestamp(new Date().getTime()));
 					fichier.setCheminfichier(nomFichierSortie);
+					fichier.setPublieur(utilisateurService
+							.findById(((Utilisateur) request.getSession()
+									.getAttribute("utilisateur")).getId()));
 
 					if (fichier instanceof Film) {
 						alimenterFilm(request, (Film) fichier);
@@ -122,9 +155,60 @@ public class UploadForm extends AbstractBusiness {
 				// TODO : supprimer le fichier temporaire
 			}
 
-			resultat = listeErreurs.isEmpty() ? "Ajout du fichier réussi."
-					: "Une erreur est survenue lors de l'ajout du fichier.";
 		}
+
+		resultat = listeErreurs.isEmpty() ? "Ajout du fichier réussi."
+				: "Une erreur est survenue lors de l'ajout du fichier.";
+
+		return fichier;
+	}
+
+	/**
+	 * Gère les tags à associer au nouveau fichier.<br/>
+	 * Si un des mots clefs saisis ne figure pas en base de données, il sera
+	 * créé puis ajouté au fichier.
+	 * 
+	 * @param fichier
+	 *            Le fichier en cours de création.
+	 * @param mainTheme
+	 *            Le thème principal du fichier.
+	 * @param motsClefs
+	 *            La liste des mots clefs du fichiers sous forme de chaîne
+	 *            séparés par le sépatateur définit par la variable
+	 *            {@code TAG_SEPARATOR}.
+	 */
+	private void alimenterTags(final Fichier fichier, final String mainTheme,
+			final String motsClefs) {
+		fichier.setMainTheme(getTag(mainTheme));
+
+		List<Tag> listeTags = new ArrayList<Tag>();
+
+		for (String libelle : motsClefs.split(TAG_SEPARATOR)) {
+			fichier.addTag(getTag(libelle));
+		}
+
+		fichier.setListeTags(listeTags);
+	}
+
+	/**
+	 * Retourne le tag correspondant au libellé passé en paramètre. S'il
+	 * n'existe pas en base, il sera créé avant d'être retourné.
+	 * 
+	 * @param libelle
+	 *            Le libellé du mot clef.
+	 */
+	private Tag getTag(final String libelle) {
+		Tag tag = tagService.findByLibelle(libelle.trim());
+
+		if (tag == null) {
+			System.out.println("Tag non trouvé");
+			tag = new Tag(libelle);
+//			tagService.insert(tag);
+//			System.out.println("Tag inséré : " + tag.toString());
+		}
+
+		System.out.println("Tag retourné : " + tag.toString());
+		return tag;
 	}
 
 	/**

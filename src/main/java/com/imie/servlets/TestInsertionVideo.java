@@ -86,20 +86,28 @@ public class TestInsertionVideo extends HttpServlet {
 			Utilisateur user = utilisateurService.findByEmail("florian.thierry72@gmail.com");
 			fichier.setPublieur(user);
 
+			System.out.println("Récupération du tag 'Test'");
 			Tag mainTag = tagService.findByLibelle("Test");
 
 			if (mainTag == null) {
+				System.out.println("Tag non trouvé");
 				mainTag = new Tag("Test");
+				tagService.insert(mainTag);
+				System.out.println("Tag inséré");
 			}
 
 			fichier.setMainTheme(mainTag);
 			
 			// Affectation des tags
 			for (String libelle : new String[] { "Test", "Toto", "Titi", "Tata" }) {
+				System.out.println("Récupération du tag '" + libelle + "'");
 				Tag tag = tagService.findByLibelle(libelle);
 
 				if (tag == null) {
+					System.out.println("Tag non trouvé");
 					tag = new Tag(libelle);
+					tagService.insert(mainTag);
+					System.out.println("Tag inséré");
 				}
 
 				fichier.addTag(tag);

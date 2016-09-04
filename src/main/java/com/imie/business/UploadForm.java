@@ -147,7 +147,7 @@ public class UploadForm extends AbstractBusiness {
 						alimenterEpisode(request, (Episode) fichier);
 					}
 
-					fichierService.insert(fichier);
+					fichierService.update(fichier);
 				}
 			}
 			// En cas d'erreur, on supprime le fichier temporaire créé.
@@ -198,13 +198,14 @@ public class UploadForm extends AbstractBusiness {
 	 *            Le libellé du mot clef.
 	 */
 	private Tag getTag(final String libelle) {
+		System.out.println("Récupération du tag \"" + libelle + "\"");
 		Tag tag = tagService.findByLibelle(libelle.trim());
 
 		if (tag == null) {
 			System.out.println("Tag non trouvé");
 			tag = new Tag(libelle);
-//			tagService.insert(tag);
-//			System.out.println("Tag inséré : " + tag.toString());
+			tagService.update(tag);
+			System.out.println("Tag inséré : " + tag.toString());
 		}
 
 		System.out.println("Tag retourné : " + tag.toString());

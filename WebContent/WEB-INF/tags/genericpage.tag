@@ -13,6 +13,8 @@
 			MediaStripe
 		</div>
 		<div id="menu">
+			<%-- TODO : Supprimer pour la prod. --%>
+			<t:connexionButton/>
 			<div id="links">
 				<a href="./Accueil">Accueil</a><br/>
 				<c:choose>

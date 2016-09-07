@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.imie.business.UploadForm;
 import com.imie.contant.VuesEnum;
+import com.imie.entities.Fichier;
 
 /**
  * Servlet implementation class Upload
@@ -55,9 +56,12 @@ public class Upload extends HttpServlet {
 		 */
 		uploadForm = new UploadForm();
 
-		uploadForm.ajouterFichier(request);
+		final Fichier fichier = uploadForm.ajouterFichier(request);
 		
 		request.setAttribute("form", uploadForm);
+		if(!uploadForm.getListeErreurs().isEmpty()) {
+			request.setAttribute("fichier", fichier);
+		}
 
 		this.getServletContext().getRequestDispatcher(VUE_FORM)
 				.forward(request, response);

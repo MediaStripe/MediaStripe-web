@@ -45,22 +45,16 @@ public class UploadForm extends AbstractBusiness {
 	static {
 		listeExtensions = new HashMap<String, List<String>>();
 		listeExtensions.put("video", new LinkedList<String>());
-		listeExtensions.get("video").addAll(
-				Arrays.asList(ApplicationProperties.get(
-						"media.extensions.videos").split(
-						ApplicationProperties.EXTENSION_SEPARATOR)));
+		listeExtensions.get("video").addAll(Arrays.asList(
+				ApplicationProperties.get("media.extensions.videos").split(ApplicationProperties.EXTENSION_SEPARATOR)));
 
 		listeExtensions.put("musique", new LinkedList<String>());
-		listeExtensions.get("musique").addAll(
-				Arrays.asList(ApplicationProperties.get(
-						"media.extensions.musiques").split(
-						ApplicationProperties.EXTENSION_SEPARATOR)));
+		listeExtensions.get("musique").addAll(Arrays.asList(ApplicationProperties.get("media.extensions.musiques")
+				.split(ApplicationProperties.EXTENSION_SEPARATOR)));
 
 		listeExtensions.put("photo", new LinkedList<String>());
-		listeExtensions.get("photo").addAll(
-				Arrays.asList(ApplicationProperties.get(
-						"media.extensions.photos").split(
-						ApplicationProperties.EXTENSION_SEPARATOR)));
+		listeExtensions.get("photo").addAll(Arrays.asList(
+				ApplicationProperties.get("media.extensions.photos").split(ApplicationProperties.EXTENSION_SEPARATOR)));
 
 	}
 
@@ -92,8 +86,7 @@ public class UploadForm extends AbstractBusiness {
 			part = request.getPart("fichier");
 		} catch (IOException | ServletException ex) {
 			ex.printStackTrace();
-			setErreur("result",
-					"Une erreur technique est survenue lors de l'envoi du fichier.");
+			setErreur("result", "Une erreur technique est survenue lors de l'envoi du fichier.");
 		}
 
 		if (part != null) {
@@ -101,9 +94,10 @@ public class UploadForm extends AbstractBusiness {
 			final String typeFichier = request.getParameter("typeFichier");
 			final String titre = request.getParameter("titre");
 			final String description = request.getParameter("description");
-			final String themePrincipal = request
-					.getParameter("themePrincipal");
+			final String themePrincipal = request.getParameter("themePrincipal");
 			final String motsClefs = request.getParameter("motsClefs");
+			System.out.println("Publique : " + request.getParameter("publique"));
+			final boolean publique = Boolean.getBoolean(request.getParameter("publique"));
 
 			// Construction du fichier en fonction de son type
 			fichier = buildFichier(typeFichier);
@@ -111,15 +105,12 @@ public class UploadForm extends AbstractBusiness {
 			// Affectation des valeurs du formulaire au fichier
 			fichier.setTitre(titre);
 			fichier.setDescription(description);
-
-			// Construction du thème principal et des mots clefs du fichier
-			// (peut etre fait après les controles)
-			alimenterTags(fichier, themePrincipal, motsClefs);
+			fichier.setPublique(publique);
+			fichier.setMotsClefs(motsClefs);
 
 			// Définition des données du fichier envoyé
 			final String nomFichier = part.getSubmittedFileName();
-			final String extension = nomFichier.substring(nomFichier
-					.lastIndexOf(".") + 1);
+			final String extension = nomFichier.substring(nomFichier.lastIndexOf(".") + 1);
 
 			try {
 				validerTypeFichier(typeFichier, extension);
@@ -128,18 +119,15 @@ public class UploadForm extends AbstractBusiness {
 			}
 
 			if (listeErreurs.isEmpty()) {
-				final String nomFichierSortie = genererNomFichier(titre) + "."
-						+ extension;
+				final String nomFichierSortie = genererNomFichier(titre) + "." + extension;
 
-				ecrireFichier(part, typeFichier, nomFichierSortie,
-						ApplicationProperties.get("media.files.repository"));
+				ecrireFichier(part, typeFichier, nomFichierSortie, ApplicationProperties.get("media.files.repository"));
 
 				if (listeErreurs.isEmpty()) {
+					final Utilisateur utilisateurConnecte = (Utilisateur) request.getSession()
+							.getAttribute("utilisateur");
 					fichier.setDatecreation(new Timestamp(new Date().getTime()));
 					fichier.setCheminfichier(nomFichierSortie);
-					fichier.setPublieur(utilisateurService
-							.findById(((Utilisateur) request.getSession()
-									.getAttribute("utilisateur")).getId()));
 
 					if (fichier instanceof Film) {
 						alimenterFilm(request, (Film) fichier);
@@ -147,7 +135,13 @@ public class UploadForm extends AbstractBusiness {
 						alimenterEpisode(request, (Episode) fichier);
 					}
 
-					fichierService.update(fichier);
+					fichier.setPublieur(utilisateurConnecte);
+
+					// Construction du thème principal et des mots clefs du
+					// fichier
+					alimenterTags(fichier, themePrincipal, motsClefs);
+
+					fichierService.insert(fichier);
 				}
 			}
 			// En cas d'erreur, on supprime le fichier temporaire créé.
@@ -177,17 +171,12 @@ public class UploadForm extends AbstractBusiness {
 	 *            séparés par le sépatateur définit par la variable
 	 *            {@code TAG_SEPARATOR}.
 	 */
-	private void alimenterTags(final Fichier fichier, final String mainTheme,
-			final String motsClefs) {
+	private void alimenterTags(final Fichier fichier, final String mainTheme, final String motsClefs) {
 		fichier.setMainTheme(getTag(mainTheme));
-
-		List<Tag> listeTags = new ArrayList<Tag>();
 
 		for (String libelle : motsClefs.split(TAG_SEPARATOR)) {
 			fichier.addTag(getTag(libelle));
 		}
-
-		fichier.setListeTags(listeTags);
 	}
 
 	/**
@@ -198,13 +187,14 @@ public class UploadForm extends AbstractBusiness {
 	 *            Le libellé du mot clef.
 	 */
 	private Tag getTag(final String libelle) {
-		System.out.println("Récupération du tag \"" + libelle + "\"");
-		Tag tag = tagService.findByLibelle(libelle.trim());
+		final String libelleTimed = libelle.trim();
+		System.out.println("Récupération du tag \"" + libelleTimed + "\"");
+		Tag tag = tagService.findByLibelle(libelleTimed);
 
 		if (tag == null) {
 			System.out.println("Tag non trouvé");
-			tag = new Tag(libelle);
-			tagService.update(tag);
+			tag = new Tag(libelleTimed);
+			tagService.insert(tag);
 			System.out.println("Tag inséré : " + tag.toString());
 		}
 
@@ -255,12 +245,9 @@ public class UploadForm extends AbstractBusiness {
 	 * @throws BusinessException
 	 *             Si l'extension du fichier n'est pas prise en compte.
 	 */
-	private void validerTypeFichier(final String typeFichier,
-			final String extension) throws BusinessException {
-		if (!(listeExtensions.containsKey(typeFichier) && listeExtensions.get(
-				typeFichier).contains(extension))) {
-			throw new BusinessException(
-					"Le type du fichier n'est pas pris en compte.");
+	private void validerTypeFichier(final String typeFichier, final String extension) throws BusinessException {
+		if (!(listeExtensions.containsKey(typeFichier) && listeExtensions.get(typeFichier).contains(extension))) {
+			throw new BusinessException("Le type du fichier n'est pas pris en compte.");
 		}
 	}
 
@@ -272,11 +259,9 @@ public class UploadForm extends AbstractBusiness {
 	 * @throws BusinessException
 	 *             Si le numéro d'épisode n'est pas une valeur numérique.
 	 */
-	private void validerNumeroEpisode(final String numero)
-			throws BusinessException {
+	private void validerNumeroEpisode(final String numero) throws BusinessException {
 		if (!RegexUtil.isNumber(numero)) {
-			throw new BusinessException(
-					"Le numéro de l'épisode doit être une valeur numérique");
+			throw new BusinessException("Le numéro de l'épisode doit être une valeur numérique");
 		}
 	}
 
@@ -309,9 +294,8 @@ public class UploadForm extends AbstractBusiness {
 			fichier = new Musique();
 			break;
 		default:
-			throw new IllegalArgumentException(new StringBuilder(
-					"Type de fichier inconnu : ").append(typeFichier)
-					.toString());
+			throw new IllegalArgumentException(
+					new StringBuilder("Type de fichier inconnu : ").append(typeFichier).toString());
 		}
 
 		return fichier;
@@ -335,8 +319,8 @@ public class UploadForm extends AbstractBusiness {
 	 *            via la propriété {@code "media.files.repository" }.
 	 * @throws IOException
 	 */
-	private void ecrireFichier(final Part part, final String typeFichier,
-			final String nomFichier, final String chemin) {
+	private void ecrireFichier(final Part part, final String typeFichier, final String nomFichier,
+			final String chemin) {
 		BufferedInputStream entree = null;
 		BufferedOutputStream sortie = null;
 
@@ -344,27 +328,22 @@ public class UploadForm extends AbstractBusiness {
 
 		try {
 			System.out.println("Créaton du buffer d'entrée");
-			entree = new BufferedInputStream(part.getInputStream(),
-					TAILLE_TAMPON);
+			entree = new BufferedInputStream(part.getInputStream(), TAILLE_TAMPON);
 
-			final String cheminFichierSortie = new StringBuilder(chemin)
-					.append(typeFichier).append("/").append(nomFichier)
-					.toString();
+			final String cheminFichierSortie = new StringBuilder(chemin).append(typeFichier).append("/")
+					.append(nomFichier).toString();
 
 			// TODO : Ajouter un contrôle sur le "/" à la fin du chemin
 			fichier = new File(cheminFichierSortie);
 
-			System.out.println("Création du fichier \"" + cheminFichierSortie
-					+ "\"");
+			System.out.println("Création du fichier \"" + cheminFichierSortie + "\"");
 			if (!fichier.createNewFile()) {
 				throw new IOException(
-						"Une erreur est survenue lors de la création du fichier \""
-								+ cheminFichierSortie + "\"");
+						"Une erreur est survenue lors de la création du fichier \"" + cheminFichierSortie + "\"");
 			}
 
 			System.out.println("Créaton du buffer de sortie");
-			sortie = new BufferedOutputStream(new FileOutputStream(fichier),
-					TAILLE_TAMPON);
+			sortie = new BufferedOutputStream(new FileOutputStream(fichier), TAILLE_TAMPON);
 
 			byte[] tampon = new byte[TAILLE_TAMPON];
 			int longueur;
@@ -373,8 +352,7 @@ public class UploadForm extends AbstractBusiness {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			setErreur(
-					"result",
+			setErreur("result",
 					"Une erreur technique est survenue lors de l'enregistrement du fichier sur le serveur.");
 			// En cas d'erreur, on supprime le fichier généré.
 			if (fichier != null) {
@@ -407,8 +385,7 @@ public class UploadForm extends AbstractBusiness {
 		final String hash = StringUtil.hashString(titreFichier, 4).substring(7);
 
 		// Remplace les points par des tirets
-		final String hashSansPoints = RegexUtil.replaceSequence(hash, "\\.",
-				"-");
+		final String hashSansPoints = RegexUtil.replaceSequence(hash, "\\.", "-");
 		// Remplace les slashs et les back-slashs par des a
 		return RegexUtil.replaceSequence(hash, "[\\\\\\/]", "a");
 	}

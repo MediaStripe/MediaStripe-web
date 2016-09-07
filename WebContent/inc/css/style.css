@@ -33,9 +33,9 @@ label {
 }
 
 #menu {
-	
 	width: 200px;
 	line-height: 2em;
+	float: left;
 }
 
 #links {
@@ -43,7 +43,7 @@ label {
 }
 
 #content {
-	
+	margin-left: 230px;
 }
 
 /* --------- Groupe d'éléments avec id ---------- */
@@ -57,12 +57,13 @@ label {
 }
 
 #menu, #content {
-	display: inline-block;
+	/* display: inline-block; */
 	vertical-align: top;
 }
 
 #filmForm, #episodeForm {
 	display: none;
+	border : 0px;
 }
 
 /* --------- Menu latéral gauche ---------- */

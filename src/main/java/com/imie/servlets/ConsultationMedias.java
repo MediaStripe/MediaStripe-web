@@ -1,7 +1,6 @@
 package com.imie.servlets;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,18 +11,18 @@ import javax.servlet.http.HttpSession;
 import com.imie.contant.VuesEnum;
 
 /**
- * Servlet implementation class GestionCompte
+ * Servlet implementation class ConsultationMedias
  */
-@WebServlet("/GestionCompte")
-public class GestionCompte extends HttpServlet {
+@WebServlet("/ConsultationMedias")
+public class ConsultationMedias extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private static final String VUE = VuesEnum.GESTION_COMPTE.val();
        
+	private static final String VUE = VuesEnum.CONSULTATION_MEDIAS.val();
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GestionCompte() {
+    public ConsultationMedias() {
         super();
     }
 

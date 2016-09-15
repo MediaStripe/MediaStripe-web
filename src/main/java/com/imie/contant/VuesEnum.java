@@ -22,6 +22,8 @@ public enum VuesEnum {
 	MODIF_MOTDEPASSE("modificationMotdepasse"),
 	/** Upload d'un média. */
 	UPLOAD("upload"),
+	/** Consultation des médias d'un utilisateur. */
+	CONSULTATION_MEDIAS("consultationMedias");
 	;
 
 	/** Le nom de la page JSP correspondant à la vue. */

@@ -9,5 +9,5 @@
 					Gestion des m&eacute;dias :<br/>
 					<a href="./Upload">Ajouter un m&eacute;dia</a><br/>
 					<a href="./UpdateMedia">Modifier un m&eacute;dia</a><br/>
-					<a href="./ConsultationMedias">Consulter mes m&eacute;dias</a>
+					<a href="./ListerMedias">Consulter mes m&eacute;dias</a>
 				</div>

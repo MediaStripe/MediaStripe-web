@@ -13,16 +13,16 @@ import com.imie.contant.VuesEnum;
 /**
  * Servlet implementation class ConsultationMedias
  */
-@WebServlet("/ConsultationMedias")
-public class ConsultationMedias extends HttpServlet {
+@WebServlet("/ListerMedias")
+public class ListerMedias extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	private static final String VUE = VuesEnum.CONSULTATION_MEDIAS.val();
+	private static final String VUE = VuesEnum.LISTER_MEDIAS.val();
 	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ConsultationMedias() {
+    public ListerMedias() {
         super();
     }
 
@@ -39,5 +39,4 @@ public class ConsultationMedias extends HttpServlet {
 		
 		this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
 	}
-
 }

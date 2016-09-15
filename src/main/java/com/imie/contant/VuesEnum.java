@@ -23,7 +23,9 @@ public enum VuesEnum {
 	/** Upload d'un média. */
 	UPLOAD("upload"),
 	/** Consultation des médias d'un utilisateur. */
-	CONSULTATION_MEDIAS("consultationMedias");
+	LISTER_MEDIAS("listerMedias"),
+	/** Consultation d'un média. */
+	CONSULTATION_MEDIA("consultationMedia"),
 	;
 
 	/** Le nom de la page JSP correspondant à la vue. */

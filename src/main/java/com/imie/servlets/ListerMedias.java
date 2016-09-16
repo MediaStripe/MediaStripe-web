@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.imie.contant.VuesEnum;
+import com.imie.util.SessionUtils;
 
 /**
  * Servlet implementation class ConsultationMedias
@@ -30,12 +31,7 @@ public class ListerMedias extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		final HttpSession session = request.getSession();
-		
-		/* Redirection de l'utilisateur s'il n'est pas connecté. */
-		if(session.isNew()) {
-			response.sendRedirect(VuesEnum.CONNEXION.val());
-		}
+		SessionUtils.checkUtilisateurConnecte(this, request, response);
 		
 		this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
 	}

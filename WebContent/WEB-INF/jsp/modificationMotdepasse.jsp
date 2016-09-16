@@ -1,5 +1,6 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 <t:genericpage>
+<t:controleUtilisateurConnecte />
 		<fieldset>
 			<legend>Modification du mot de passe :</legend>
 			<form action="./ModificationMotdepasse" method="post">

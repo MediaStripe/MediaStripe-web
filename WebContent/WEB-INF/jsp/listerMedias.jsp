@@ -1,5 +1,6 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 <t:genericpage>
+<t:controleUtilisateurConnecte />
 		<fieldset>
 			<legend>Liste de mes m&eacute;dias :</legend>
 			<ul>

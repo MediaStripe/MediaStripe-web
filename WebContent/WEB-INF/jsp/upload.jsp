@@ -1,5 +1,6 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 <t:genericpage>
+<t:controleUtilisateurConnecte />
 		<fieldset>
 			<legend>Ajout d'un média :</legend>
 			<form action="./Upload" method="post" enctype="multipart/form-data">

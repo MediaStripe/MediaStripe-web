@@ -35,6 +35,10 @@ public class Connexion extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getParameter("accessDenied") != null){
+			request.setAttribute("accessDenied", "Vous devez être connecté pour accéder à cette page.");
+		}
+		
 		this.getServletContext().getRequestDispatcher(VUE_FORM).forward(request, response);
 	}
 

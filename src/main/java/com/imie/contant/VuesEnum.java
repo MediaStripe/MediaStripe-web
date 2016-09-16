@@ -26,6 +26,8 @@ public enum VuesEnum {
 	LISTER_MEDIAS("listerMedias"),
 	/** Consultation d'un média. */
 	CONSULTATION_MEDIA("consultationMedia"),
+	/** Redirection vers la page de connexion. */
+	REDIRECT_CONNEXION("redirectConnexion"),
 	;
 
 	/** Le nom de la page JSP correspondant à la vue. */

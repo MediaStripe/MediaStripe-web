@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.imie.business.UploadForm;
 import com.imie.contant.VuesEnum;
 import com.imie.entities.Fichier;
+import com.imie.util.SessionUtils;
 
 /**
  * Servlet implementation class Upload
@@ -38,18 +39,21 @@ public class Upload extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher(VUE_FORM)
-				.forward(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		SessionUtils.checkUtilisateurConnecte(this, request, response);
+
+		this.getServletContext().getRequestDispatcher(VUE_FORM).forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		SessionUtils.checkUtilisateurConnecte(this, request, response);
+
 		/*
 		 * Réinitialisation des valeurs en mémoire au cas où il aurait eû des
 		 * erreurs au précédent passage
@@ -57,14 +61,13 @@ public class Upload extends HttpServlet {
 		uploadForm = new UploadForm();
 
 		final Fichier fichier = uploadForm.ajouterFichier(request);
-		
+
 		request.setAttribute("form", uploadForm);
-		if(!uploadForm.getListeErreurs().isEmpty()) {
+		if (!uploadForm.getListeErreurs().isEmpty()) {
 			request.setAttribute("fichier", fichier);
 		}
 
-		this.getServletContext().getRequestDispatcher(VUE_FORM)
-				.forward(request, response);
+		this.getServletContext().getRequestDispatcher(VUE_FORM).forward(request, response);
 	}
 
 }

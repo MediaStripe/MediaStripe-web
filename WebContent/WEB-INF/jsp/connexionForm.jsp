@@ -2,6 +2,12 @@
 <t:genericpage>
 		<fieldset>
 			<legend>Connexion :</legend>
+			<%-- Si un utilisateur a tenté d'accéder à une page necéssitant une session sans en avoir,
+				il sera redirigé sur cette page avec un message d'erreur. --%>
+			<c:if test="${ !empty accessDenied }">
+				<span class="erreur">${ accessDenied }</span>
+			</c:if>
+			<span></span>
 			<form action="./Connexion" method="post">
 				<label for="mail">
 					Adresse mail<span class="required">*</span> :

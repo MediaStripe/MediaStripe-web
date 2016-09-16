@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.imie.business.ModificationUtilisateurForm;
 import com.imie.contant.VuesEnum;
@@ -57,7 +56,6 @@ public class ModificationUtilisateur extends HttpServlet {
 		modificationUtilisateurForm.modifierUtilisateur(request);
 
 		request.setAttribute("form", modificationUtilisateurForm);
-
 		
 		this.getServletContext().getRequestDispatcher(
 				modificationUtilisateurForm.getListeErreurs().isEmpty() ? VUE_SUCCESS : VUE_FORM)

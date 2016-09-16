@@ -1,5 +1,6 @@
 package com.imie.util;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class RegexUtil {
@@ -64,5 +65,12 @@ public final class RegexUtil {
 	
 	public static boolean isNumber(final String chaine) {
 		return NUMBER_ONLY_PATTERN.matcher(chaine).find();
+	}
+	
+	public static String getGroup(final String regex, final int numeroGroupe, final String chaine) {
+		final Pattern pattern = Pattern.compile(regex);
+		final Matcher matcher = pattern.matcher(chaine);
+		matcher.find();
+		return matcher.group(numeroGroupe);
 	}
 }

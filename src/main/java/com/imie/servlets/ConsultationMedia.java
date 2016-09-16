@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.imie.business.ConsultationMediaForm;
 import com.imie.contant.VuesEnum;
-import com.imie.services.impl.FichierService;
 
 /**
  * Servlet implementation class ConsultationVideo
@@ -20,10 +20,8 @@ public class ConsultationMedia extends HttpServlet {
 
 	private static final String VUE = VuesEnum.CONSULTATION_MEDIA.val();
 
-	// TODO : Corriger l'injection via @EJB
-//	@EJB
-	private FichierService fichierService = new FichierService();
-
+	private ConsultationMediaForm consultationMediaForm;
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -35,9 +33,11 @@ public class ConsultationMedia extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("fichier", fichierService.findById(Integer.parseInt(request.getParameter("media"))));
+		consultationMediaForm = new ConsultationMediaForm();
+		
+		request.setAttribute("fichier", consultationMediaForm.getFichier(request));
+		request.setAttribute("form", consultationMediaForm);
 		
 		this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
 	}
-
 }

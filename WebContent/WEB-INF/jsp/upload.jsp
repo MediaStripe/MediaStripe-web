@@ -4,7 +4,7 @@
 			<legend>Ajout d'un média :</legend>
 			<form action="./Upload" method="post" enctype="multipart/form-data">
 				<label for="typeFichier">Type de fichier :</label>&nbsp;
-				<select name="typeFichier" id="typeFichier" onchange="afficherForm()">
+				<select name="typeFichier" id="typeFichier">
 					<option value="video">Vid&eacute;o</option>
 					<option value="photo">Photo</option>
 					<option value="musique">Musique</option>
@@ -35,18 +35,9 @@
 				<input type="text" name="motsClefs" id="motsClefs" value="<c:out value="${ fichier.motsClefs }" />" placeholder="S&eacute;parez les mots clefs par des points-virgule" /><br/>
 				
 				<div id="filmForm">
-					<label for="realisateur">R&eacute;alisateur<t:required/> :</label>
-					<input type="text" name="realisateur" id="realisateur" value="<c:out value="${ realisateur }"/>" /><br/>
-					<span class="erreur">${ form.listeErreurs['realisateur'] }</span><br />
 				</div>
 				<div id="episodeForm">
-					<label for="numeroEpisode">Num&eacute;ro de l'&eacute;pisode<t:required/> :</label>
-					<input type="text" name="numeroEpisode" id="numeroEpisode" value="<c:out value="${ numeroEpisode }"/>" /><br/>
-					<span class="erreur">${ form.listeErreurs['numeroEpisode'] }</span><br />
 					
-					<label for="serieEpisode">S&eacute;rie de l'&eacute;pisode<t:required/> :</label>
-					<input type="text" name="serieEpisode" id="serieEpisode" value="<c:out value="${ serieEpisode }"/>" /><br/>
-					<span class="erreur">${ form.listeErreurs['serieEpisode'] }</span><br />
 				</div>
 				
 				<input type="reset" value="R&eacute;initialiser" onclick="cacherForm()"/>
@@ -56,26 +47,7 @@
 				<p class="info">${ form.getResultat() }</p>
 			</form>
 		</fieldset>
-		<script type="text/javascript">
-			function afficherForm() {
-				var listeTypeFichier = document.getElementById("typeFichier");
-				var valeurSelectionnee = listeTypeFichier.options[listeTypeFichier.selectedIndex].value;
-
-				cacherForm();
-				
-				if("film" === valeurSelectionnee)
-				{
-					document.getElementById("filmForm").style.display = "inline";
-				}
-				else if("episode" === valeurSelectionnee)
-				{
-					document.getElementById("episodeForm").style.display = "inline";
-				}
-			}
-			
-			function cacherForm() {
-				document.getElementById("filmForm").style.display = "none";
-				document.getElementById("episodeForm").style.display = "none";
-			}
-		</script>
+		
+		<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+		<script type="text/javascript" src="./inc/js/monjs.js"></script>
 </t:genericpage>

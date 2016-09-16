@@ -36,8 +36,8 @@ public class Log4JInitServlet extends HttpServlet {
 		} else {
 			String webAppPath = sc.getRealPath("/");
 			String log4jProp = webAppPath + log4jLocation;
-			File yoMamaYesThisSaysYoMama = new File(log4jProp);
-			if (yoMamaYesThisSaysYoMama.exists()) {
+			File fichierProperties = new File(log4jProp);
+			if (fichierProperties.exists()) {
 				System.out.println("Initializing log4j with: " + log4jProp);
 				PropertyConfigurator.configure(log4jProp);
 			} else {

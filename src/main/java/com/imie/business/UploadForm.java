@@ -56,6 +56,8 @@ public class UploadForm extends AbstractBusiness {
 		listeExtensions.get("photo").addAll(Arrays.asList(
 				ApplicationProperties.get("media.extensions.photos").split(ApplicationProperties.EXTENSION_SEPARATOR)));
 
+		listeExtensions.put("film", listeExtensions.get("video"));
+		listeExtensions.put("episode", listeExtensions.get("video"));
 	}
 
 	// TODO : Corriger l'injection via @EJB
@@ -230,8 +232,9 @@ public class UploadForm extends AbstractBusiness {
 			setErreur("numeroEpisode", ex.getMessage());
 		}
 
-		if (erreur) {
+		if (!erreur) {
 			episode.setNumero(Integer.parseInt(numeroEpisode));
+			episode.setSerie(request.getParameter("serieEpisode"));
 		}
 	}
 
@@ -330,8 +333,8 @@ public class UploadForm extends AbstractBusiness {
 			System.out.println("Créaton du buffer d'entrée");
 			entree = new BufferedInputStream(part.getInputStream(), TAILLE_TAMPON);
 
-			final String cheminFichierSortie = new StringBuilder(chemin).append(typeFichier).append("/")
-					.append(nomFichier).toString();
+			final String cheminFichierSortie = new StringBuilder(chemin).append(genererCheminTypeFichier(typeFichier))
+					.append("/").append(nomFichier).toString();
 
 			// TODO : Ajouter un contrôle sur le "/" à la fin du chemin
 			fichier = new File(cheminFichierSortie);
@@ -372,6 +375,33 @@ public class UploadForm extends AbstractBusiness {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	/**
+	 * Génère le chemin depuis le répertoire de sauvegarde des fichiers de
+	 * l'application vers le répertoire de destination du fichier.<br/>
+	 * Par exemple, si "typeFichier" vaut "film", la fonction retournera
+	 * "video/film".
+	 * 
+	 * @param typeFichier
+	 *            Le type de fichier en cours d'enregistrement.
+	 * @return Le chemin de destination du fichier en cours d'enregistrement.
+	 */
+	private String genererCheminTypeFichier(final String typeFichier) {
+		final String result;
+
+		switch (typeFichier) {
+		case "film":
+			result = "video/" + typeFichier;
+			break;
+		case "episode":
+			result = "video/" + typeFichier;
+			break;
+		default:
+			result = typeFichier;
+		}
+
+		return result;
 	}
 
 	/**

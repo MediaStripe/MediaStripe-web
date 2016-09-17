@@ -1,7 +1,5 @@
 package com.imie.business;
 
-import static com.imie.contant.ChampsUtilisateurEnum.PASSWORD;
-
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +7,7 @@ import com.imie.business.controls.UtilisateurControls;
 import com.imie.entities.Utilisateur;
 import com.imie.exceptions.BusinessException;
 import com.imie.services.impl.UtilisateurService;
+import com.imie.util.SessionUtils;
 import com.imie.util.StringUtil;
 
 /**
@@ -36,7 +35,7 @@ public class ModificationMotdepasseForm extends AbstractBusiness {
 	 * @param request
 	 */
 	public void modifierMotdepasse(final HttpServletRequest request) {
-		final Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
+		final Utilisateur utilisateur = SessionUtils.getUtilisateurConnecte(request);
 		
 		final String motdepasseActuel = getValeurChamp(request, ATT_MOTDEPASSE_ACTUEL);
 		final String nouveauMotdepasse = getValeurChamp(request, ATT_NOUVEAU_MOTDEPASSE);

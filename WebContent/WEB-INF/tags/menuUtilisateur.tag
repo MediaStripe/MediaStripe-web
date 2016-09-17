@@ -7,7 +7,6 @@
 					</a><br/>
 					<a href="./Deconnexion" ><img src="./inc/images/deconnexion.png" class="menuIcon" alt="D"/> D&eacute;connexion</a><br/>
 					Gestion des m&eacute;dias :<br/>
-					<a href="./Upload">Ajouter un m&eacute;dia</a><br/>
-					<a href="./UpdateMedia">Modifier un m&eacute;dia</a><br/>
+					<a href="./AjoutFichier">Ajouter un m&eacute;dia</a><br/>
 					<a href="./ListerMedias">Consulter mes m&eacute;dias</a>
 				</div>

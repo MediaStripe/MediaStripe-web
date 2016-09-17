@@ -12,7 +12,6 @@ import static com.imie.contant.ChampsUtilisateurEnum.PRENOM;
 import java.util.Date;
 
 import javax.ejb.EJB;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 

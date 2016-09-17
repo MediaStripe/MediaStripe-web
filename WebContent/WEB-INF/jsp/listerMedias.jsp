@@ -5,14 +5,17 @@
 			<legend>Liste de mes m&eacute;dias :</legend>
 			<ul>
 				<c:forEach items="${ sessionScope.utilisateur.medias }" var="media">
-					<c:choose>
-						<c:when test="${ media.isFichier() }">
-							<li><a href="<c:out value="ConsultationMedia?media=${ media.id }" />" >${ media.titre }</a></li>
-						</c:when>
-						<c:otherwise>
-							<li>${ media.titre }</li>
-						</c:otherwise>
-					</c:choose>
+					<li>
+						<c:choose>
+							<c:when test="${ media.isFichier() }">
+								<a href="<c:out value="ConsultationMedia?media=${ media.id }" />" >${ media.titre }</a>
+							</c:when>
+							<c:otherwise>
+								${ media.titre }
+							</c:otherwise>
+						</c:choose>
+						<a href="./ModificationMedia?media=<c:out value="${ media.id }"/>">Modifier</a>
+					</li>
 				</c:forEach>
 			</ul>
 		</fieldset>

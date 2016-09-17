@@ -31,5 +31,7 @@
 		<div id="content">
 			<jsp:doBody/>
 		</div>
+		<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+		<script type="text/javascript" src="./inc/js/monjs.js"></script>
 	</body>
 </html>

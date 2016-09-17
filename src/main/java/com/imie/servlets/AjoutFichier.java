@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.imie.business.UploadForm;
+import com.imie.business.AjoutFichierForm;
 import com.imie.contant.VuesEnum;
 import com.imie.entities.Fichier;
 import com.imie.util.SessionUtils;
@@ -17,21 +17,19 @@ import com.imie.util.SessionUtils;
 /**
  * Servlet implementation class Upload
  */
-@WebServlet("/Upload")
+@WebServlet("/AjoutFichier")
 @MultipartConfig(location = "/opt/MediaStripe/files/tmp/", maxFileSize = 10485760L, maxRequestSize = 52428800L, fileSizeThreshold = 1048576)
-public class Upload extends HttpServlet {
+public class AjoutFichier extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final String VUE_FORM = VuesEnum.UPLOAD.val();
+	private static final String VUE_FORM = VuesEnum.AJOUT_FICHIER.val();
 
-	private static final String VUE_SUCCESS = VuesEnum.ACCUEIL.val();
-
-	private UploadForm uploadForm;
+	private AjoutFichierForm ajoutFichierForm;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Upload() {
+	public AjoutFichier() {
 		super();
 	}
 
@@ -58,12 +56,12 @@ public class Upload extends HttpServlet {
 		 * Réinitialisation des valeurs en mémoire au cas où il aurait eû des
 		 * erreurs au précédent passage
 		 */
-		uploadForm = new UploadForm();
+		ajoutFichierForm = new AjoutFichierForm();
 
-		final Fichier fichier = uploadForm.ajouterFichier(request);
+		final Fichier fichier = ajoutFichierForm.ajouterFichier(request);
 
-		request.setAttribute("form", uploadForm);
-		if (!uploadForm.getListeErreurs().isEmpty()) {
+		request.setAttribute("form", ajoutFichierForm);
+		if (!ajoutFichierForm.getListeErreurs().isEmpty()) {
 			request.setAttribute("fichier", fichier);
 		}
 

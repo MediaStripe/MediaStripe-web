@@ -3,9 +3,9 @@ package com.imie.business;
 import javax.servlet.http.HttpServletRequest;
 
 import com.imie.entities.Fichier;
-import com.imie.entities.Utilisateur;
 import com.imie.exceptions.BusinessException;
 import com.imie.services.impl.FichierService;
+import com.imie.util.SessionUtils;
 
 public class ConsultationMediaForm extends AbstractBusiness {
 	// TODO : Corriger l'injection via @EJB
@@ -36,7 +36,7 @@ public class ConsultationMediaForm extends AbstractBusiness {
 	 */
 	private void validerDroitsFichier(HttpServletRequest request, Fichier fichier) throws BusinessException {
 		if (!(fichier.isPublique()
-				|| fichier.getPublieur().equals((Utilisateur) request.getSession().getAttribute("utilisateur")))) {
+				|| fichier.getPublieur().equals(SessionUtils.getUtilisateurConnecte(request)))) {
 			throw new BusinessException(
 					"Le fichier demandé est privé. Vous n'avez pas les droits suffisants pour y accéder.");
 		}

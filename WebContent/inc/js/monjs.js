@@ -1,7 +1,7 @@
 $(function() {
 	/**
 	 * Sélection d'un élément dans la liste déroulante nommée 'typeFichier' du
-	 * formulaire "upload".
+	 * formulaire "ajoutFichier".
 	 */
 	$("select[name='typeFichier']").change(function() {
 		reinitialiserForm();
@@ -16,7 +16,7 @@ $(function() {
 	});
 	
 	/**
-	 * Supprime les morceaux "ajout d'un film" et "ajout d'un épisode" du formulaire "upload".
+	 * Supprime les morceaux "ajout d'un film" et "ajout d'un épisode" du formulaire "ajoutFichier".
 	 */
 	function reinitialiserForm() {
 		$('#filmForm').html('');
@@ -24,7 +24,7 @@ $(function() {
 	}
 	
 	/**
-	 * Affiche le morceau du formulaire d'ajout d'un film dans le formulaire "upload".
+	 * Affiche le morceau du formulaire d'ajout d'un film dans le formulaire "ajoutFichier".
 	 * @param data Le contenu du formulaire d'ajout de film.
 	 */
 	function afficherFilmForm(data) {
@@ -32,7 +32,7 @@ $(function() {
 	}
 	
 	/**
-	 * Affiche le morceau du formulaire d'ajout d'un épisode de série dans le formulaire "upload".
+	 * Affiche le morceau du formulaire d'ajout d'un épisode de série dans le formulaire "ajoutFichier".
 	 * @param data Le contenu du formulaire d'ajout d'épisode.
 	 */
 	function afficherEpisodeForm(data) {

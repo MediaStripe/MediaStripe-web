@@ -12,6 +12,7 @@ import com.imie.business.controls.UtilisateurControls;
 import com.imie.entities.Utilisateur;
 import com.imie.exceptions.BusinessException;
 import com.imie.services.impl.UtilisateurService;
+import com.imie.util.SessionUtils;
 
 /**
  * Traitement métier relatif à la modification d'informations personnelles d'un
@@ -34,7 +35,7 @@ public class ModificationUtilisateurForm extends AbstractBusiness {
 	 * @param request
 	 */
 	public void modifierUtilisateur(final HttpServletRequest request) {
-		final Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
+		final Utilisateur utilisateur = SessionUtils.getUtilisateurConnecte(request);
 		
 		final String nouveauNom = getValeurChamp(request, NOM.val());
 		final String nouveauPrenom = getValeurChamp(request, PRENOM.val());
@@ -63,7 +64,7 @@ public class ModificationUtilisateurForm extends AbstractBusiness {
 		resultat = listeErreurs.isEmpty() ? "Mise à jour effectuée."
 				: "Échec de la mise à jour des informations personnelles.";
 		
-		if(listeErreurs.isEmpty()) {
+		if(hasErrors()) {
 			utilisateur.setNom(nouveauNom);
 			utilisateur.setPrenom(nouveauPrenom);
 			utilisateur.setMail(nouveauMail);

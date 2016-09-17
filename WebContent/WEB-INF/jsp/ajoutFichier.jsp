@@ -3,7 +3,7 @@
 <t:controleUtilisateurConnecte />
 		<fieldset>
 			<legend>Ajout d'un média :</legend>
-			<form action="./Upload" method="post" enctype="multipart/form-data">
+			<form action="./AjoutFichier" method="post" enctype="multipart/form-data">
 				<label for="typeFichier">Type de fichier :</label>&nbsp;
 				<select name="typeFichier" id="typeFichier">
 					<option value="video">Vid&eacute;o</option>
@@ -48,7 +48,4 @@
 				<p class="info">${ form.getResultat() }</p>
 			</form>
 		</fieldset>
-		
-		<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
-		<script type="text/javascript" src="./inc/js/monjs.js"></script>
 </t:genericpage>

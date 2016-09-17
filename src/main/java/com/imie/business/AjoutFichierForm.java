@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,7 +34,7 @@ import com.imie.services.impl.UtilisateurService;
 import com.imie.util.RegexUtil;
 import com.imie.util.StringUtil;
 
-public class UploadForm extends AbstractBusiness {
+public class AjoutFichierForm extends AbstractBusiness {
 	/** Taille du tampon pour le transfer du fichier depuis le client. */
 	private static final int TAILLE_TAMPON = 10240;
 
@@ -98,8 +97,7 @@ public class UploadForm extends AbstractBusiness {
 			final String description = request.getParameter("description");
 			final String themePrincipal = request.getParameter("themePrincipal");
 			final String motsClefs = request.getParameter("motsClefs");
-			System.out.println("Publique : " + request.getParameter("publique"));
-			final boolean publique = Boolean.getBoolean(request.getParameter("publique"));
+			final boolean publique = "on".equals(request.getParameter("publique"));
 
 			// Construction du fichier en fonction de son type
 			fichier = buildFichier(typeFichier);

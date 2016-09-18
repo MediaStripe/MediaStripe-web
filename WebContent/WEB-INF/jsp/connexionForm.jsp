@@ -8,7 +8,7 @@
 				<span class="erreur">${ accessDenied }</span>
 			</c:if>
 			<span></span>
-			<form action="./Connexion" method="post">
+			<form action="./Connexion" method="post" accept-charset="UTF-8">
 				<label for="mail">
 					Adresse mail<span class="required">*</span> :
 				</label>&nbsp;

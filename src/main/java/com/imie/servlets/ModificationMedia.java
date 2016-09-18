@@ -63,6 +63,8 @@ public class ModificationMedia extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		SessionUtils.checkUtilisateurConnecte(this, request, response);
+		
+		request.setCharacterEncoding("UTF-8");
 
 		/*
 		 * Réinitialisation des valeurs en mémoire au cas où il aurait eû des
@@ -70,8 +72,9 @@ public class ModificationMedia extends HttpServlet {
 		 */
 		modificationMediaFrom = new ModificationMediaForm();
 
-		modificationMediaFrom.modifierMedia(request);
+		final Media media = modificationMediaFrom.modifierMedia(request);
 
+		request.setAttribute("media", media);
 		request.setAttribute("form", modificationMediaFrom);
 
 		this.getServletContext().getRequestDispatcher(modificationMediaFrom.hasErrors() ? VUE_FORM : VUE_SUCCESS)

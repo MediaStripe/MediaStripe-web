@@ -46,6 +46,8 @@ public class ModificationUtilisateur extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SessionUtils.checkUtilisateurConnecte(this, request, response);
+
+		request.setCharacterEncoding("UTF-8");
 		
 		/*
 		 * Réinitialisation des valeurs en mémoire au cas où il aurait eû des

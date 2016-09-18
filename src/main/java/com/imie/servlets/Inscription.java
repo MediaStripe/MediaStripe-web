@@ -47,6 +47,8 @@ public class Inscription extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		/*
 		 * Réinitialisation des valeurs en mémoire au cas où il aurait eû des
 		 * erreurs au précédent passage

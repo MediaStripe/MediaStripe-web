@@ -38,4 +38,11 @@ $(function() {
 	function afficherEpisodeForm(data) {
 		$('#episodeForm').html(data);
 	}
+	
+	
+	$(".supprimer").click(function(event) {
+		if(!confirm("Êtes-vous sûr de vouloir supprimer ce média ?")) {
+			event.preventDefault();
+		}
+	})
 });

@@ -28,7 +28,7 @@
 							</c:when>
 						</c:choose>
 						<%-- Affichage du player vidéo --%>
-						<video id="mediaPlayed" width="320" height="240" controls>
+						<video id="mediaPlayed" width="600" height="400" controls>
 							<source
 								src="./fichier/video/${ pathExtension }<c:out value="${ fichier.cheminfichier }"/>"
 								type="video/mp4">
@@ -53,7 +53,7 @@
 					<%-- ************* --%>
 					<%-- Fichier image --%>
 					<%-- ************* --%>
-					<c:when test="${ media.isPhoto() }">
+					<c:when test="${ fichier.isPhoto() }">
 						<img src="./fichier/photo/<c:out value="${ fichier.cheminfichier }"/>" alt="${ fichier.titre }"/>
 					</c:when>
 				</c:choose>

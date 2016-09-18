@@ -3,7 +3,7 @@
 <t:controleUtilisateurConnecte />
 		<fieldset>
 			<legend>Ajout d'un média :</legend>
-			<form action="./AjoutFichier" method="post" enctype="multipart/form-data">
+			<form action="./AjoutFichier" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 				<label for="typeFichier">Type de fichier :</label>&nbsp;
 				<select name="typeFichier" id="typeFichier">
 					<option value="video">Vid&eacute;o</option>

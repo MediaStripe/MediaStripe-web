@@ -18,7 +18,7 @@ import com.imie.util.SessionUtils;
  * Servlet implementation class Upload
  */
 @WebServlet("/AjoutFichier")
-@MultipartConfig(location = "/opt/MediaStripe/files/tmp/", maxFileSize = 10485760L, maxRequestSize = 52428800L, fileSizeThreshold = 1048576)
+@MultipartConfig(location = "/opt/MediaStripe/files/tmp/", maxFileSize = 104857600L, maxRequestSize = 524288000L, fileSizeThreshold = 10485760)
 public class AjoutFichier extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -52,6 +52,8 @@ public class AjoutFichier extends HttpServlet {
 			throws ServletException, IOException {
 		SessionUtils.checkUtilisateurConnecte(this, request, response);
 
+		request.setCharacterEncoding("UTF-8");
+		
 		/*
 		 * Réinitialisation des valeurs en mémoire au cas où il aurait eû des
 		 * erreurs au précédent passage

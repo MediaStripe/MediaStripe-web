@@ -3,7 +3,7 @@
 <t:controleUtilisateurConnecte />
 		<fieldset>
 			<legend>Mes infos personnelles :</legend>
-			<form action="./ModificationUtilisateur" method="post">
+			<form action="./ModificationUtilisateur" method="post" accept-charset="UTF-8">
 				<label for="nom">
 					Nom :
 				</label>&nbsp;

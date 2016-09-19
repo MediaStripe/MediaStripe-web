@@ -12,18 +12,18 @@ import com.imie.contant.VuesEnum;
 import com.imie.util.SessionUtils;
 
 /**
- * Servlet implementation class GestionCompte
+ * Servlet implementation class ConsultationMedias
  */
-@WebServlet("/GestionCompte")
-public class GestionCompte extends HttpServlet {
+@WebServlet("/ListerMedias")
+public class ListerMedias extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private static final String VUE = VuesEnum.GESTION_COMPTE.val();
        
+	private static final String VUE = VuesEnum.LISTER_MEDIAS.val();
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GestionCompte() {
+    public ListerMedias() {
         super();
     }
 
@@ -35,5 +35,4 @@ public class GestionCompte extends HttpServlet {
 		
 		this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
 	}
-
 }

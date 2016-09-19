@@ -21,6 +21,10 @@ public abstract class AbstractBusiness {
 	public Map<String, String> getListeErreurs() {
 		return listeErreurs;
 	}
+	
+	public boolean hasErrors() {
+		return !listeErreurs.isEmpty();
+	}
 
 	/**
 	 * Enregistre une erreur dans la liste d'erreurs.

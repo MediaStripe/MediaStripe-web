@@ -2,7 +2,7 @@
 <t:genericpage>
 		<fieldset>
 			<legend>Inscription :</legend>
-			<form action="./Inscription" method="post">
+			<form action="./Inscription" method="post" accept-charset="UTF-8">
 				<label for="nom">
 					Nom<span class="required">*</span> :
 				</label>&nbsp;

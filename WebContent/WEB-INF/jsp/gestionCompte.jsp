@@ -1,5 +1,6 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 <t:genericpage>
+<t:controleUtilisateurConnecte />
 		<fieldset>
 			<legend>Mon espace personnel :</legend>
 			Sur cet espace, je peux :

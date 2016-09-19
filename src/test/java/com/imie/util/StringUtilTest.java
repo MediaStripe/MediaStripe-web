@@ -3,11 +3,11 @@ package com.imie.util;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.junit.Test;
-import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * Test unitaires relatifs à la classe {@link StringUtil}.
@@ -58,18 +58,10 @@ public class StringUtilTest {
 	}
 	
 	@Test
-	public void test() {
-		final String hash = BCrypt.hashpw("passe", BCrypt.gensalt(4));
+	public void test2() {
+		List<String> liste = new LinkedList<String>();
+		liste.addAll(Arrays.asList("ogg,mp4".split(",")));
 		
-		System.out.println(hash);
-
-		final String regex = "([a-zA-Z0-9]+)";
-		final String regex2 = "[\\.\\\\\\/]";
-		
-		System.out.println(Pattern.compile(regex2).matcher(hash).replaceAll("ù"));
-		
-		
-		
-//		System.out.println(bld.toString());
+		assertTrue(liste.contains("mp4"));
 	}
 }

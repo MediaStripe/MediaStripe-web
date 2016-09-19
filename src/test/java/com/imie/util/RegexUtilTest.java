@@ -1,5 +1,6 @@
 package com.imie.util;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -22,5 +23,22 @@ public class RegexUtilTest {
 		
 		final String emailKO = "azerty";
 		assertFalse(RegexUtil.isEmail(emailKO));
+	}
+	
+	@Test
+	public void testIsNumber() {
+		assertTrue(RegexUtil.isNumber("0123456789"));
+		
+		assertFalse(RegexUtil.isNumber("a"));
+		assertFalse(RegexUtil.isNumber("a0"));
+		assertFalse(RegexUtil.isNumber("0a"));
+		assertFalse(RegexUtil.isNumber("&"));
+		assertFalse(RegexUtil.isNumber("&0"));
+		assertFalse(RegexUtil.isNumber("0&"));
+	}
+	
+	@Test
+	public void testReplaceSlashs() {
+		assertEquals("aaaaaa", RegexUtil.replaceSequence("//\\\\//", "[\\\\\\/]", "a"));
 	}
 }

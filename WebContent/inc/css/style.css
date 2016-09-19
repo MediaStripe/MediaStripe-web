@@ -33,9 +33,9 @@ label {
 }
 
 #menu {
-	
 	width: 200px;
 	line-height: 2em;
+	float: left;
 }
 
 #links {
@@ -43,7 +43,7 @@ label {
 }
 
 #content {
-	
+	margin-left: 230px;
 }
 
 /* --------- Groupe d'éléments avec id ---------- */
@@ -61,16 +61,24 @@ label {
 	vertical-align: top;
 }
 
+#filmForm, #episodeForm {
+	border : 0px;
+}
+
 /* --------- Menu latéral gauche ---------- */
 #menu div {
 	padding: 0px 0px;
 }
 
-#menu div a img {
+.menuIcon {
 	width: 20px;
 	height: 20px;
-	vertical-align: middle;
+	vertical-align: middle;	
 }
+
+/* #menu div a img {
+
+} */
 
 #menu a, #menu a:visited {
 	color: #9E2424;

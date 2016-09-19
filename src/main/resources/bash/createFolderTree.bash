@@ -31,9 +31,9 @@ function checkCommand
 	
 	if [ $1 -eq 0 ]
 	then
-		echo $1
-	else
 		echo $2
+	else
+		echo $3
 		exit 1
 	fi
 }
@@ -42,7 +42,7 @@ function checkCommand
 # Programme principal
 #****************************
 echo 'Création des répertoires...'
-sudo mkdir -p /opt/MediaStripe/files/{videos/{films,episodes},musiques,photos,tmp}
+sudo mkdir -p /opt/MediaStripe/files/{video/{film,episode},musique,photo,tmp}
 checkCommand $? 'Répertoires créés' 'Une erreur est survenue lors de la création des répertoires'
 
 echo 'Modification des droits des répertoires créés...'

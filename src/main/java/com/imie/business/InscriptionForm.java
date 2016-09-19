@@ -12,11 +12,9 @@ import static com.imie.contant.ChampsUtilisateurEnum.PRENOM;
 import java.util.Date;
 
 import javax.ejb.EJB;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 
-import com.imie.business.controls.UtilisateurControls;
 import com.imie.entities.Utilisateur;
 import com.imie.exceptions.BusinessException;
 import com.imie.services.impl.UtilisateurService;
@@ -55,7 +53,7 @@ public class InscriptionForm extends AbstractBusiness {
 				utilisateurService.findByEmail(utilisateur.getMail());
 				
 				setErreur("result", "L'adresse mail correspond déjà à un utilisateur.");
-			} catch (final NoResultException ex) {
+			} catch (final PersistenceException ex) {
 				// date d'inscription = date du jour
 				utilisateur.setDateinscription(new Date());
 				utilisateurService.insert(utilisateur);

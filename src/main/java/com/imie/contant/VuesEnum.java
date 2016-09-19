@@ -21,7 +21,15 @@ public enum VuesEnum {
 	/** Modification du mot de passe d'un utilisateur. */
 	MODIF_MOTDEPASSE("modificationMotdepasse"),
 	/** Upload d'un média. */
-	UPLOAD("upload"),
+	AJOUT_FICHIER("ajoutFichier"),
+	/** Consultation des médias d'un utilisateur. */
+	LISTER_MEDIAS("listerMedias"),
+	/** Consultation d'un média. */
+	CONSULTATION_MEDIA("consultationMedia"),
+	/** Redirection vers la page de connexion. */
+	REDIRECT_CONNEXION("redirectConnexion"),
+	/** Modification d'un média. */
+	MODIFICATION_MEDIA("modificationMedia"),
 	;
 
 	/** Le nom de la page JSP correspondant à la vue. */

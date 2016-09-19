@@ -35,6 +35,10 @@ public class Connexion extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getParameter("accessDenied") != null){
+			request.setAttribute("accessDenied", "Vous devez être connecté pour accéder à cette page.");
+		}
+		
 		this.getServletContext().getRequestDispatcher(VUE_FORM).forward(request, response);
 	}
 
@@ -42,6 +46,8 @@ public class Connexion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		/*
 		 * Réinitialisation des valeurs en mémoire au cas où il aurait eû des
 		 * erreurs au précédent passage

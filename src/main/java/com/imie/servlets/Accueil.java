@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.imie.contant.VuesEnum;
 
 /**
@@ -19,6 +21,8 @@ public class Accueil extends HttpServlet {
 	
 	/** Page jsp associée à la servlet. */
 	private static final String VUE = VuesEnum.ACCUEIL.val();
+	
+	private static final Logger LOGGER = Logger.getLogger(Accueil.class);
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -31,6 +35,7 @@ public class Accueil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		LOGGER.debug("Affichage de la vue " + VUE);
 		this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
 	}
 

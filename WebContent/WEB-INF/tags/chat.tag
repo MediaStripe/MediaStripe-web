@@ -9,5 +9,10 @@
 			<input id="messageInput" style="width: 500px;" type="text"
 				class="validate" placeholder="Entrez votre message...">
 		</div>
-	</div>
+		<label>Contacts</label><br>
+		<ul id="friendsList">
+		
+	</ul>
+	Test liste des amis
+	
 	<script type="text/javascript" src="inc/js/chat-websocket.js"></script>

@@ -16,7 +16,7 @@ connectionChat.onmessage = function(event){
 			displayMessage(tchatHistoryList[ii]);
 		}
 	}else if(message.type === 'message'){
-		displayMessge(message.value);
+		displayMessage(message.value);
 	}else if(message.type === 'friendList'){
 		displayFriends(message.friends, message.userStatusConnected);
 	}

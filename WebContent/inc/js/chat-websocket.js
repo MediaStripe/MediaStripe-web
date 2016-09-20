@@ -1,5 +1,5 @@
 var connectionChat = new WebSocket("ws://" + location.host
-		+ "/MediaStripe-web/testSocket");
+		+ "/MediaStripe-web-0.0.1/testSocket");
 document.getElementById("messageInput").addEventListener("keydown",
 		function(e) {
 			if (e.keyCode === 13 && this.value !== "") {
@@ -7,23 +7,23 @@ document.getElementById("messageInput").addEventListener("keydown",
 				this.value = "";
 			}
 		});
-connectionChat.onmessage = function(event){
+connectionChat.onmessage = function(event) {
 	console.log(typeof event.data);
 	var message = JSON.parse(event.data);
-	if(message.type === 'messageHistory'){
+	if (message.type === 'messageHistory') {
 		var tchatHistoryList = message.messageList;
-		for(var ii=0;ii<tchatHistoryList.length;ii++){
+		for (var ii = 0; ii < tchatHistoryList.length; ii++) {
 			displayMessage(tchatHistoryList[ii]);
 		}
-	}else if(message.type === 'message'){
+	} else if (message.type === 'message') {
 		displayMessage(message.value);
-	}else if(message.type === 'friendList'){
-		displayFriends(message.friends, message.userStatusConnected);
+	} else if (message.type === 'friendList') {
+		var listeFriends = message.friends.split(';');
+		displayFriends(listeFriends, message.userStatusConnected);
 	}
 }
 
-
-function displayMessage(message){
+function displayMessage(message) {
 	var li = document.createElement("li");
 	li.className = "collection-item avatar";
 	var span = document.createElement("span");
@@ -37,20 +37,57 @@ function displayMessage(message){
 			.getElementById("ChatContent").scrollHeight;
 }
 
-
-function displayFriends(friends,friendsConnectedStatus){
+/**
+ * Affiche la liste des contacts de l'utilisateur connecté.
+ * 
+ * @param friends
+ *            La liste des contacts, sous forme de tableau de chaînes au format
+ *            "id!nom prenom".
+ * @param friendsConnectedStatus
+ *            Liste de booleens indiquant pour chaque utilisateur s'il est
+ *            connecté ou non.
+ */
+function displayFriends(friends, friendsConnectedStatus) {
 	var friendsUlElement = document.getElementById("friendsList");
+
 	console.log(friendsConnectedStatus);
-	for(var ii=0;ii<friends.length;ii++){
+
+	for (var ii = 0; ii < friends.length; ii++) {
 		var li = document.createElement('li');
-		li.innerHTML = friends[ii].prenom +' '+friends[ii].nom;
-		
-		if(friendsConnectedStatus[ii])
-			li.innerHTML += '<div class="" style="background: #35ac19;width: 7px;height: 7px;border-radius: 99999px;padding: 0;"></div>';
-			//li.innerHTML += ' : Connecté';
-		else
-			li.innerHTML += ' : Déconnecté';
-		li.dataset.userid = friends[ii].id;
+
+		// Création du point de couleur indiquant si le contact est connecté.
+		li.innerHTML = '<div class="" style="background: #'
+				+ (friendsConnectedStatus[ii] ? '35ac19' : 'F00')
+				+ ';width: 7px;height: 7px;border-radius: 99999px;padding: 0;" /> ';
+
+		// Récupération du contact
+		var ami = friends[ii].split('!');
+		li.innerHTML += getNomEtPrenomContact(ami);
+		li.dataset.userid = getIdContact(ami);
 		friendsUlElement.appendChild(li);
 	}
+}
+
+/**
+ * Retourne l'identifiant du contact passé en paramètre.
+ * 
+ * @param friendSplited
+ *            L'ami passé en paramètre, en tant que chaîne, sous la forme :
+ *            "id!nom prenom"
+ * @returns L'id du contact
+ */
+function getIdContact(contact) {
+	return contact[0];
+}
+
+/**
+ * Retourne le nom et le prénom du contact passé en paramètre.
+ * 
+ * @param friendSplited
+ *            L'ami passé en paramètre, en tant que chaîne, sous la forme :
+ *            "id!nom prenom"
+ * @returns Le nom et le prénom du contact. Ex: "DUPONT Pierre"
+ */
+function getNomEtPrenomContact(contact) {
+	return contact[1];
 }

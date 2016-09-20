@@ -23,7 +23,8 @@ import com.imie.util.RegexUtil;
  * Servlet implementation class AccessFichier
  */
 @WebServlet(urlPatterns = "/fichier/*", initParams = {
-		@WebInitParam(name = "repertoire", value = "/opt/MediaStripe/files/") })
+	@WebInitParam(name = "repertoire", value = "/opt/MediaStripe/files/") 
+})
 public class AccessFichier extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

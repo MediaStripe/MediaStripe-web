@@ -24,7 +24,7 @@
 							</a>
 						</td>
 						<td>
-							<a href="./SupprimerMedia?media=<c:out value="${ media.id }"/>" class="supprimer">
+							<a href="./SuppressionMedia?media=<c:out value="${ media.id }"/>" class="supprimer">
 								<img src="./inc/images/supprimer.png" class="menuIcon" alt="Supprimer"/>
 							</a>
 						</td>

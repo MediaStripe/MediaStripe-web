@@ -30,6 +30,8 @@ public enum VuesEnum {
 	REDIRECT_CONNEXION("redirectConnexion"),
 	/** Modification d'un média. */
 	MODIFICATION_MEDIA("modificationMedia"),
+	/** Suppression d'un média. */
+	SUPPRESSION_MEDIA("suppressionMedia"),
 	;
 
 	/** Le nom de la page JSP correspondant à la vue. */

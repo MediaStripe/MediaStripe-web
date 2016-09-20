@@ -6,18 +6,32 @@
 			<table>
 				<c:forEach items="${ sessionScope.utilisateur.medias }" var="media">
 					<tr>
-						<c:choose>
-							<c:when test="${ media.isFichier() }">
-								<td>
-									<a href="<c:out value="ConsultationMedia?media=${ media.id }" />" >
-										${ media.titre }
+						<td>
+							<c:choose>
+								<c:when test="${ media.isFichier() }">
+									<%-- Définition de l'icone du média --%>
+									<c:choose>
+										<c:when test="${ media.isPhoto() }">
+											<c:set scope="page" var="icone" value="icone_photo.png" />
+										</c:when>
+										<c:when test="${ media.isMusique() }">
+											<c:set scope="page" var="icone" value="icone_musique.png" />
+										</c:when>
+										<c:when test="${ media.isVideo() }">
+											<c:set scope="page" var="icone" value="icone_video.png" />
+										</c:when>
+									</c:choose>
+									
+									<a href="<c:out value="ConsultationMedia?media=${ media.id }" />" class="ligneMediaLien">
+										<img src="./inc/images/<c:out value="${ icone }" />" class="mediaIcon" />
+										<c:out value="${ media.titre }" />
 									</a>
-								</td>
-							</c:when>
-							<c:otherwise>
-								${ media.titre }
-							</c:otherwise>
-						</c:choose>
+								</c:when>
+								<c:otherwise>
+									<c:out value="${ media.titre }" />
+								</c:otherwise>
+							</c:choose>
+						</td>
 						<td>
 							<a href="./ModificationMedia?media=<c:out value="${ media.id }"/>">
 								<img src="./inc/images/editer.png" class="menuIcon" alt="Éditer"/>
@@ -26,7 +40,7 @@
 						<td>
 							<a href="./SuppressionMedia?media=<c:out value="${ media.id }"/>" class="supprimer">
 								<img src="./inc/images/supprimer.png" class="menuIcon" alt="Supprimer"/>
-							</a>
+							</a> 
 						</td>
 					</tr>
 				</c:forEach>

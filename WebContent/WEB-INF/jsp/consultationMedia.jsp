@@ -54,7 +54,7 @@
 					<%-- Fichier image --%>
 					<%-- ************* --%>
 					<c:when test="${ fichier.isPhoto() }">
-						<img src="./fichier/photo/<c:out value="${ fichier.cheminfichier }"/>" alt="${ fichier.titre }"/>
+						<img src="./fichier/photo/<c:out value="${ fichier.cheminfichier }"/>" alt="${ fichier.titre }" class="mediaPhoto"/>
 					</c:when>
 				</c:choose>
 			</fieldset>

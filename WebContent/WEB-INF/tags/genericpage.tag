@@ -10,12 +10,15 @@
 		<link type="text/css" rel="stylesheet" href="./inc/css/style.css" />
 	</head>
 	<body>
-		<div id="header">MediaStripe</div>
+		<div id="header">
+			<a href="./Accueil">
+				MediaStripe
+			</a>
+		</div>
 		<div id="menu">
 			<%-- TODO : Supprimer pour la prod. --%>
 			<t:connexionButton/>
 			<div id="links">
-				<a href="./Accueil">Accueil</a><br/>
 				<c:choose>
 					<c:when test="${ empty sessionScope.utilisateur }">
 						<a href="./Inscription">S'inscrire</a><br/>

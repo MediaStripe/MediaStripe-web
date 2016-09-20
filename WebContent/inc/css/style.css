@@ -25,11 +25,66 @@ label {
 	color: red;
 }
 
+.ligneMedia {
+	width: 100%;
+}
+
+.mediaIcon {
+	margin-right: 10px;
+	vertical-align: middle;
+	width: 30px;
+	height: 30px;
+}
+
+/* ****************************************** */
+/* Média à consulter (dans la page d'accueil) */
+/* ****************************************** */
+.ligneMediaLien, .ligneMediaLien {
+	text-decoration: none;
+}
+
+.ligneMediaLien:hover {
+	text-decoration: underline;
+}
+
+.ligneMediaLien, .ligneMediaLien:visited, .ligneMediaLien:hover {
+	font-size: 14px;
+	color: #0875C8;
+}
+
+/* *********************************************** */
+/* Utilisateur à consulter (dans la page d'accueil */
+/* *********************************************** */
+.publieur, .publieur:visited {
+	color: #8D8D8D;
+	text-decoration: none;
+}
+
+.publieur:hover {
+	color: #0875C8;
+	text-decoration: underline;
+}
+
+.publieur, .publieur:visited, .publieur:hover {
+	font-size: 11px;
+ 	margin-left: 42px;
+}
+
+.mediaPhoto {
+	max-width: 350px;
+	max-height: 600px;
+}
+
 /* --------- Éléments avec id, seuls ---------- */
-#header {
+#header{
 	margin-bottom: 10px;
 	font-size: 42px;
 	text-shadow: 0px 0px 12px #FFF;
+}
+
+#header a, #header a:hover, #header a:visited {
+	text-decoration: none;
+	color: #9E2424;
 }
 
 #menu {
@@ -43,7 +98,11 @@ label {
 }
 
 #content {
-	margin-left: 230px;
+	margin-left: 10px;
+}
+
+#chat {
+	float:right;
 }
 
 /* --------- Groupe d'éléments avec id ---------- */

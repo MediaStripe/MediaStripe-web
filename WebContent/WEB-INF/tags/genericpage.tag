@@ -1,6 +1,7 @@
-<%@tag description="Template de base du site MediaStripe" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
+<%@tag description="Template de base du site MediaStripe"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags/"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -9,9 +10,7 @@
 		<link type="text/css" rel="stylesheet" href="./inc/css/style.css" />
 	</head>
 	<body>
-		<div id="header">
-			MediaStripe
-		</div>
+		<div id="header">MediaStripe</div>
 		<div id="menu">
 			<%-- TODO : Supprimer pour la prod. --%>
 			<t:connexionButton/>
@@ -31,6 +30,9 @@
 		<div id="content">
 			<jsp:doBody/>
 		</div>
+		<c:if test="${ !empty sessionScope.utilisateur }">
+			<t:chat />
+		</c:if>
 		<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<script type="text/javascript" src="./inc/js/monjs.js"></script>
 	</body>

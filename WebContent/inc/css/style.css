@@ -56,8 +56,8 @@ label {
 	text-align: center;
 }
 
-#menu, #content {
-	/* display: inline-block; */
+#menu, #content, #chat {
+	display: inline-block;
 	vertical-align: top;
 }
 

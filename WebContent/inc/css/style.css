@@ -2,7 +2,7 @@
 
 /* --------- Éléments html purs, seuls ---------- */
 body {
-	background-color: #F9F9F9;
+	background-color: #F2F2F2;
 	padding: 0px;
 	margin: 0px;
 }
@@ -103,6 +103,7 @@ label {
 
 #chat {
 	float:right;
+	background-color: #FFF;
 }
 
 /* --------- Groupe d'éléments avec id ---------- */
@@ -122,6 +123,10 @@ label {
 
 #filmForm, #episodeForm {
 	border : 0px;
+}
+
+#episodeForm, #filmForm {
+	padding: 0px 0px;
 }
 
 /* --------- Menu latéral gauche ---------- */

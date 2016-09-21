@@ -26,7 +26,7 @@ public class ChatEndPoint {
 	private static Map<String, HttpSession> userHttpSessions;
 
 	@OnOpen
-	public void onOpen(Session session, EndpointConfig config) {
+	public void onOpen(Session s, EndpointConfig config) {
 		if (ChatEndPoint.userSessions == null)
 			userSessions = new CopyOnWriteArrayList<Session>();
 		if (ChatEndPoint.userHttpSessions == null)
@@ -37,7 +37,7 @@ public class ChatEndPoint {
 		System.out.println(userSession.getAttribute("utilisateur"));
 		if (userSession.getAttribute("utilisateur") != null) {
 			user = (Utilisateur) userSession.getAttribute("utilisateur");
-			session.getUserProperties().put("userId", user.getId().toString());
+			s.getUserProperties().put("userId", user.getId().toString());
 			List<Utilisateur> contacts = user.getContacts();
 
 			ArrayList<Boolean> contactsConnecte = new ArrayList<Boolean>();
@@ -47,23 +47,47 @@ public class ChatEndPoint {
 					connecte = false;
 				contactsConnecte.add(connecte);
 			}
-			session.getUserProperties().put("pseudo", user.getPrenom() + " " + user.getNom());
+			s.getUserProperties().put("pseudo", user.getPrenom() + " " + user.getNom());
 			JsonObject json = new JsonObject();
 			json.addProperty("type", "friendList");
 
 			json.addProperty("friends", getListeContacts(user));
 			json.add("userStatusConnected", new Gson().toJsonTree(contactsConnecte).getAsJsonArray());
 			try {
-				session.getBasicRemote().sendText(json.toString());
+				s.getBasicRemote().sendText(json.toString());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 
-		userSessions.add(session);
-		if (user != null)
+		userSessions.add(s);
+		if (user != null){
 			userHttpSessions.put(user.getId().toString(), userSession);
+			
+			for (Utilisateur friend : user.getContacts()) {
+				if (userHttpSessions.get(friend.getId().toString()) != null) {
+					JsonObject json = new JsonObject();
+					json.addProperty("type", "friendUpdateStatus");
+					json.addProperty("friendId",s.getUserProperties().get("userId").toString());
+					json.addProperty("isConnected", true);
+					for (Session session : userSessions) {
+						if (session.getUserProperties().get("userId").toString().equals(friend.getId().toString())) {
+							System.out.println("Friend found");
+							try {
+								session.getBasicRemote().sendText(json.toString());
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+
+					}
+
+				}
+			}
+		}
+			
 
 		try {
 			if (userSession.getAttribute("tchatSessionHistory") != null) {
@@ -72,13 +96,16 @@ public class ChatEndPoint {
 				JsonObject json = new JsonObject();
 				json.addProperty("type", "messageHistory");
 				json.add("messageList", new Gson().toJsonTree(messageHistory).getAsJsonArray());
-				session.getBasicRemote().sendText(json.toString());
+				s.getBasicRemote().sendText(json.toString());
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
+		
+		
+		
 		System.out.println("Utilisateurs connectés :" + userSessions.size());
 	}
 
@@ -135,6 +162,31 @@ public class ChatEndPoint {
 
 	@OnClose
 	public void removeSession(Session s) {
+		HttpSession httpSession = userHttpSessions.get(s.getUserProperties().get("userId"));
+		Utilisateur user = (Utilisateur) httpSession.getAttribute("utilisateur");
+		List<Utilisateur> friends = user.getContacts();
+		for (Utilisateur friend : friends) {
+			if (userHttpSessions.get(friend.getId().toString()) != null) {
+				JsonObject json = new JsonObject();
+				json.addProperty("type", "friendUpdateStatus");
+				json.addProperty("friendId",s.getUserProperties().get("userId").toString());
+				json.addProperty("isConnected", false);
+				for (Session session : userSessions) {
+					if (session.getUserProperties().get("userId").toString().equals(friend.getId().toString())) {
+						System.out.println("Friend found");
+						try {
+							session.getBasicRemote().sendText(json.toString());
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+				}
+
+			}
+		}
+
 		userHttpSessions.remove(s.getUserProperties().get("userId"));
 		System.out.println(userHttpSessions.size());
 		userSessions.remove(s);

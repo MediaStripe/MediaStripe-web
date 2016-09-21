@@ -13,6 +13,5 @@
 		<ul id="friendsList">
 		
 	</ul>
-	Test liste des amis
 	
 	<script type="text/javascript" src="inc/js/chat-websocket.js"></script>

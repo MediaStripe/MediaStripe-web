@@ -5,7 +5,7 @@ Boutton permettant d'éviter le processus de connexion pour aller plus vite dans
 Ce bouton est appelé dans le fichier "genericpage.tag". --%>
 <c:if test="${ empty sessionScope.utilisateur }">
 	<form action="./Connexion" method="POST">
-		<input type="hidden" name="mail" value="florian.thierry72@gmail.com" />
+		<input type="hidden" name="mail" value="david.salmon@gmail.com" />
 		<input type="hidden" name="password" value="P@ssword1"/>
 		<input type="submit" value="ConnexionAuto"/>
 	</form>

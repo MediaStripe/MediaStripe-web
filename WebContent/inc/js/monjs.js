@@ -41,7 +41,7 @@ $(function() {
 	
 	
 	$(".supprimer").click(function(event) {
-		if(!confirm("Êtes-vous sûr de vouloir supprimer ce média ?")) {
+		if(!confirm("Êtes-vous sûr de vouloir le supprimer ?")) {
 			event.preventDefault();
 		}
 	})

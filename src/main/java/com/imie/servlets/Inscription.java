@@ -21,7 +21,7 @@ public class Inscription extends HttpServlet {
 
 	private static final String VUE_FORM =  VuesEnum.INSCRIPTION.val();
 
-	private static final String VUE_SUCCESS =  VuesEnum.ACCUEIL.val();
+	private static final String VUE_SUCCESS =  VuesEnum.CONNEXION.val();
 
 	private InscriptionForm inscriptionForm;
 

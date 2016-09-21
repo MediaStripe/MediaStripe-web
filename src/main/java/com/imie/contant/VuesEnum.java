@@ -34,6 +34,8 @@ public enum VuesEnum {
 	SUPPRESSION_MEDIA("suppressionMedia"),
 	/** Consultation du profil d'un utilisateur. */
 	CONSULTATION_PROFIL("consultationProfil"),
+	/** Consultation des contacts de l'utilisateur. */
+	LISTER_CONTACTS("listerContacts"),
 	;
 
 	/** Le nom de la page JSP correspondant à la vue. */

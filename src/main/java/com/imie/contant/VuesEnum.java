@@ -32,6 +32,8 @@ public enum VuesEnum {
 	MODIFICATION_MEDIA("modificationMedia"),
 	/** Suppression d'un média. */
 	SUPPRESSION_MEDIA("suppressionMedia"),
+	/** Consultation du profil d'un utilisateur. */
+	CONSULTATION_PROFIL("consultationProfil"),
 	;
 
 	/** Le nom de la page JSP correspondant à la vue. */

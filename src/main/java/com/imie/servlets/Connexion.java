@@ -20,7 +20,7 @@ public class Connexion extends HttpServlet {
 	
 	private static final String VUE_FORM = VuesEnum.CONNEXION.val();
 	
-	private static final String VUE_ACCUEIL = VuesEnum.ACCUEIL.val();
+	private static final String VUE_ACCUEIL = VuesEnum.GESTION_COMPTE.val();
     
 	private ConnexionForm connexionForm;
 	

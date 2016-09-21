@@ -172,10 +172,18 @@ public class AjoutFichierForm extends AbstractBusiness {
 	 *            {@code TAG_SEPARATOR}.
 	 */
 	private void alimenterTags(final Fichier fichier, final String mainTheme, final String motsClefs) {
-		fichier.setMainTheme(getTag(mainTheme));
+		if (StringUtil.isNull(mainTheme)) {
+			fichier.setMainTheme(getTag(mainTheme));
+		}
 
 		for (String libelle : motsClefs.split(TAG_SEPARATOR)) {
-			fichier.addTag(getTag(libelle));
+			/*
+			 * Contrôle de "isNull" au cas où il y aurait une saisie comme
+			 * ";;;;;".
+			 */
+			if (StringUtil.isNull(mainTheme)) {
+				fichier.addTag(getTag(libelle));
+			}
 		}
 	}
 

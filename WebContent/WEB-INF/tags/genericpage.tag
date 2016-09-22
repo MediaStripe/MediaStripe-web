@@ -31,6 +31,7 @@
 			</div>
 		</div>
 		<div id="content">
+			<t:formulaireDeRecherches/>
 			<jsp:doBody/>
 		</div>
 		<c:if test="${ !empty sessionScope.utilisateur }">

@@ -13,9 +13,7 @@ div {
 }
 
 label {
-/* 	display: block; */
 	width: 220px;
-	float: left;
 }
 
 /* --------- Groupes d'éléments html purs ---------- */
@@ -104,6 +102,24 @@ label {
 #chat {
 	float:right;
 	background-color: #FFF;
+}
+
+#categories {
+	border: 0px;
+	padding: 0px 0px;
+}
+
+#categories p {
+	display: inline-block;
+	margin: 0px 0px;
+}
+
+#categories p label {
+	margin-right: 10px;
+}
+
+#criteres {
+	width: 500px;
 }
 
 /* --------- Groupe d'éléments avec id ---------- */

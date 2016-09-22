@@ -36,6 +36,8 @@ public enum VuesEnum {
 	CONSULTATION_PROFIL("consultationProfil"),
 	/** Consultation des contacts de l'utilisateur. */
 	LISTER_CONTACTS("listerContacts"),
+	/** Résultat de recherche. */
+	RECHERCHER("rechercher"),
 	;
 
 	/** Le nom de la page JSP correspondant à la vue. */

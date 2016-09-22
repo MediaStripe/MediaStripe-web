@@ -53,7 +53,7 @@ public class ModificationMediaForm extends AbstractBusiness {
 		if (!hasErrors()) {
 			final String titre = request.getParameter("titre");
 			final String description = request.getParameter("description");
-			final boolean publique = "on".equals(request.getParameter("publique"));
+			final boolean publique = "publique".equals(request.getParameter("publique"));
 			final String themePrincipal = request.getParameter("themePrincipal");
 			final String motsClefs = request.getParameter("motsClefs");
 

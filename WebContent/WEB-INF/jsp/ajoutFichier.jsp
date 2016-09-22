@@ -27,7 +27,7 @@
 				<span class="erreur">${ form.listeErreurs['description'] }</span><br />
 
 				<label for="publique">Publique<t:required/> :</label>&nbsp;
-				<input type="checkbox" name="publique" id="publique" value="true" <c:if test="${ empty fichier || fichier.isPublique() }" >checked</c:if> /><br/>
+				<input type="checkbox" name="publique" id="publique" value="publique" <c:if test="${ empty fichier || fichier.isPublique() }" >checked</c:if> /><br/>
 				
 				<label for="themePrincipal">Th&egrave;me principal :</label>
 				<input type="text" name="themePrincipal" id="themePrincipal" value="<c:out value="${ fichier.mainTheme.libelle }" />" placeholder="Le th&egrave;me principal du fichier." /><br/>

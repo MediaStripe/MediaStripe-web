@@ -97,7 +97,7 @@ public class AjoutFichierForm extends AbstractBusiness {
 			final String description = request.getParameter("description");
 			final String themePrincipal = request.getParameter("themePrincipal");
 			final String motsClefs = request.getParameter("motsClefs");
-			final boolean publique = "on".equals(request.getParameter("publique"));
+			final boolean publique = "publique".equals(request.getParameter("publique"));
 
 			// Construction du fichier en fonction de son type
 			fichier = buildFichier(typeFichier);

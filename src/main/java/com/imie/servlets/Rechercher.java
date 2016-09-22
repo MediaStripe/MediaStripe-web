@@ -17,6 +17,8 @@ import com.imie.contant.VuesEnum;
 public class Rechercher extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
+	private static final String PARAM_CRITERES = "criteres";
+	
 	private static final String VUE = VuesEnum.RECHERCHER.val();
 	
 	private RechercherForm rechercherForm;
@@ -31,10 +33,13 @@ public class Rechercher extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		rechercherForm = new RechercherForm();
-		
+
+		request.setAttribute(PARAM_CRITERES, request.getParameter(PARAM_CRITERES));
 		request.setAttribute("resultats", rechercherForm.rechercher(request));
-		
+
 		this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
 	}
 

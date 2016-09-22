@@ -9,18 +9,33 @@
 			</c:if>
 			<span></span>
 			<form action="./Connexion" method="post" accept-charset="UTF-8">
-				<label for="mail">
-					Adresse mail<span class="required">*</span> :
-				</label>&nbsp;
-				<input type="text" name="mail" id="mail" value="<c:out value="${ mailSaisi }" />" required/><br/>
-				
-				<label for="password">
-					Mot de passe<span class="required">*</span> :
-				</label>&nbsp;
-				<input type="password" id="password" name="password" required/><br/>
-				
-				<input type="submit" value="Connexion"/><br/>
-				
+				<table>
+					<tr>
+						<td>
+							<label for="mail">
+								Adresse mail<span class="required">*</span> :
+							</label>
+						</td>
+						<td>
+							<input type="text" name="mail" id="mail" value="<c:out value="${ mailSaisi }" />" required/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="password">
+								Mot de passe<span class="required">*</span> :
+							</label>
+						</td>
+						<td>
+							<input type="password" id="password" name="password" required/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<input type="submit" value="Connexion"/>
+						</td>
+					</tr>
+				</table>
 				<span class="erreur">${ form.listeErreurs['result'] }</span>
 			</form>
 		</fieldset>

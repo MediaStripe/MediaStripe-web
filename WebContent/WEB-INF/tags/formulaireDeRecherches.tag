@@ -1,7 +1,9 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ attribute name="criteres" required="true"
+	description="Critères de recherche saisis par l'utilisateur"%>
 				<div id="rechercher">
-					<form action="./Rechercher" method="POST">
+					<form action="./Rechercher" method="POST" accept-charset="UTF-8">
 						<div id="categories">
 							<p style="width: 140px;">
 								<input type="checkbox" id="toutcocher" checked /> 
@@ -24,7 +26,7 @@
 								<label for="utilisateur">Utilisateurs</label>
 							</p>
 						</div>
-						<input type="text" name="criteres" id="criteres" required />
+						<input type="text" name="criteres" id="criteres" value="<c:out value="${ criteres }" />" placeholder="Rechercher..." required />
 						<input type="submit" value="Rechercher" />
 					</form>
 				</div>

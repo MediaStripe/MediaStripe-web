@@ -114,9 +114,11 @@ label {
 	margin: 0px 0px;
 }
 
-#categories p label {
+/* La fonction ":not()" permet d'exclure un élément */
+#categories p label, :not(label[for=toutcocher]) {
 	margin-right: 10px;
 }
+
 
 #criteres {
 	width: 500px;

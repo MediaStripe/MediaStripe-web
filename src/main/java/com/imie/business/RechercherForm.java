@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import com.imie.entities.Media;
 import com.imie.entities.Musique;
 import com.imie.entities.Photo;
-import com.imie.entities.Utilisateur;
 import com.imie.entities.Video;
 import com.imie.services.impl.MediaService;
 
@@ -35,7 +34,6 @@ public class RechercherForm extends AbstractBusiness {
 		result.put(Photo.class.getSimpleName(), "photo".equals(request.getParameter("photo")));
 		result.put(Musique.class.getSimpleName(), "musique".equals(request.getParameter("musique")));
 		result.put(Video.class.getSimpleName(), "video".equals(request.getParameter("video")));		
-//		result.put(Utilisateur.class.getSimpleName(), "utilisateur".equals(request.getParameter("utilisateur")));		
 
 		/*
 		 * Si toutes les catégories sont à "false", on va sélectionner toutes

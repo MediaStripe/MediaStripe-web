@@ -7,77 +7,21 @@ body {
 	margin: 0px;
 }
 
-div {
-	padding: 10px 10px;
-	border: solid 1px black;
-}
-
-label {
-	width: 220px;
-}
-
-/* --------- Groupes d'éléments html purs ---------- */
-
-/* --------- Classes pures, seules ---------- */
-.erreur, .required {
-	color: red;
-}
-
-.ligneMedia {
-	width: 100%;
-}
-
-.mediaIcon {
-	margin-right: 10px;
-	vertical-align: middle;
-	width: 30px;
-	height: 30px;
-}
-
-/* ****************************************** */
-/* Média à consulter (dans la page d'accueil) */
-/* ****************************************** */
-.ligneMediaLien, .ligneMediaLien {
-	text-decoration: none;
-}
-
-.ligneMediaLien:hover {
-	text-decoration: underline;
-}
-
-.ligneMediaLien, .ligneMediaLien:visited, .ligneMediaLien:hover {
-	font-size: 14px;
-	color: #0875C8;
-}
-
-/* *********************************************** */
-/* Utilisateur à consulter (dans la page d'accueil */
-/* *********************************************** */
-.publieur, .publieur:visited {
-	color: #8D8D8D;
-	text-decoration: none;
-}
-
-.publieur:hover {
-	color: #0875C8;
-	text-decoration: underline;
-}
-
-.publieur, .publieur:visited, .publieur:hover {
-	font-size: 11px;
- 	margin-left: 42px;
-}
-
-.mediaPhoto {
-	max-width: 350px;
-	max-height: 600px;
-}
-
-/* --------- Éléments avec id, seuls ---------- */
 #header{
-	margin-bottom: 10px;
-	font-size: 42px;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	text-align: center;
 	text-shadow: 0px 0px 12px #FFF;
+	background-color: #FFF;
+	border: 1px #CCC solid;
+}
+
+#header a {
+	display: block;
 }
 
 #header a, #header a:hover, #header a:visited {
@@ -85,23 +29,74 @@ label {
 	color: #9E2424;
 }
 
+#content {
+	width: 100%;
+	margin-top: 90px;
+}
+
+/************************/
+/* Menu latéral gauche. */
+/************************/
 #menu {
-	width: 200px;
+	position: fixed;
+	top: 91px;
+	left: 0px;
+	width: 210px;
 	line-height: 2em;
 	float: left;
+	border: 1px #CCC solid;
 }
 
-#links {
-	text-align: left;
+.menuIcon {
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;	
 }
 
-#content {
-	margin-left: 10px;
+#menu a, #menu a:hover {
+	display: block;
+	padding: 5px;
+}
+
+#menu a {
+	background-color: #FFF;
+}
+
+#menu a:hover {
+	background-color: #8B60B2;
+}
+
+#menu a img {
+	margin-right: 5px;
+}
+
+#menu a, #menu a:visited {
+	color: #8B60B2;
+}
+
+#menu a:hover {
+	color: #FFF;
+}
+/* FIN - Menu latéral gauche. */
+
+#subcontent, #subcontentConnected {
+	background-color: #FFF;
+	width: 800px;
+	margin: 0px auto;
+	display: block;
+	box-shadow: 0px 0px 10px #888888;
+	border: 1px #CCC solid;
+}
+
+.connected {
+	width: 80%;
 }
 
 #chat {
-	float:right;
+	width: 300px;
 	background-color: #FFF;
+	float:right;
+	margin-top: -320px
 }
 
 #categories {
@@ -114,62 +109,85 @@ label {
 	margin: 0px 0px;
 }
 
-/* La fonction ":not()" permet d'exclure un élément */
+/* La fonction ":not()" permet d'exclure un élément. */
 #categories p label, :not(label[for=toutcocher]) {
 	margin-right: 10px;
 }
 
-
 #criteres {
-	width: 500px;
+	width: 700px;
 }
 
-/* --------- Groupe d'éléments avec id ---------- */
-
-#header, #menu, #content {
-	background-color: white;
+#logo {
+	padding: 10px;
 }
 
-#header, #menu {
-	text-align: center;
+.mediaIcon {
+	margin-right: 10px;
+	vertical-align: middle;
+	width: 30px;
+	height: 30px;
 }
 
-#menu, #content, #chat {
-	display: inline-block;
+.erreur, .required {
+	color: red;
+}
+
+#subcontent, #subcontentConnected, #menu, #chat {
 	vertical-align: top;
 }
 
-#filmForm, #episodeForm {
-	border : 0px;
+#menu, #chat {
+	display:inline-block;
 }
 
-#episodeForm, #filmForm {
-	padding: 0px 0px;
+#chatContent {
+	height: 200px;
+	overflow-y: scroll;
 }
 
-/* --------- Menu latéral gauche ---------- */
-#menu div {
-	padding: 0px 0px;
+#rechercher {
+	padding: 10px;
 }
 
-.menuIcon {
-	width: 20px;
-	height: 20px;
-	vertical-align: middle;	
+.ligneMedia {
+	padding: 5px 10px;
 }
 
-/* #menu div a img {
-
-} */
-
-#menu a, #menu a:visited {
-	color: #9E2424;
+p.ligneMedia:hover {
+	background-color: #8B60B2;
 }
 
-#menu a:hover {
-	color: #540303;
+p.ligneMedia:hover .ligneMediaLien, p.ligneMedia:hover .ligneMediaLien {
+	color: #FFF;
+	/* text-decoration: underline; */
 }
 
-#menu a, #menu a:hover, #menu a:visited {
+.ligneMediaLien, .ligneMediaLien:visited {
 	text-decoration: none;
+	color: #8B60B2;
+}
+
+.ligneMediaLien, .ligneMediaLien:visited, .ligneMediaLien:hover {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+p.ligneMedia:hover .publieur, p.ligneMedia:hover .publieur:visited {
+	color: #FFD696;
+}
+
+.publieur, .publieur:visited {
+	color: #56B277;
+	text-decoration: none;
+}
+
+.publieur:hover {
+	text-decoration: underline;
+}
+
+.publieur, .publieur:visited, .publieur:hover {
+	font-size: 11px;
+	font-weight: bold;
+	margin-left: 50px;
 }

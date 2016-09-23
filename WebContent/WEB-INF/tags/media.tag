@@ -18,8 +18,7 @@
 				<c:set scope="page" var="icone" value="icone_video.png" />
 			</c:when>
 		</c:choose>
-		<img src="./inc/images/<c:out value="${ icone }" />" class="mediaIcon" />
-		<c:out value="${media.titre }" /><br />
+		<img src="./inc/images/<c:out value="${ icone }" />" class="mediaIcon" /><c:out value="${media.titre }" /><br />
 		<c:if test="${ showPublieur }">
 			<a href="./ConsultationProfil?utilisateur=<c:out value="${ media.publieur.id }"/>" class="publieur">
 				<c:out value="${ media.publieur.nom } ${ media.publieur.prenom }" />

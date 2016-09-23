@@ -10,33 +10,37 @@
 		<link type="text/css" rel="stylesheet" href="./inc/css/style.css" />
 	</head>
 	<body>
-		<div id="header">
+		<p id="header">
 			<a href="./Accueil">
-				MediaStripe
+				<img src="./inc/images/mediastripe-logo.png" id="logo" />
 			</a>
-		</div>
-		<div id="menu">
-			<%-- TODO : Supprimer pour la prod. --%>
-			<t:connexionButton/>
-			<div id="links">
-				<c:choose>
-					<c:when test="${ empty sessionScope.utilisateur }">
-						<a href="./Inscription">S'inscrire</a><br/>
-						<a href="./Connexion"><img src="./inc/images/connexion.png" class="menuIcon" alt="C"/> Connexion</a>
-					</c:when>
-					<c:otherwise>
-						<t:menuUtilisateur />
-					</c:otherwise>
-				</c:choose>
-			</div>
-		</div>
+		</p>
 		<div id="content">
-			<t:formulaireDeRecherches criteres="${ criteres }"/>
-			<jsp:doBody/>
+			<div id="menu">
+				<div id="links">
+					<c:choose>
+						<c:when test="${ empty sessionScope.utilisateur }">
+							<a href="./Inscription">S'inscrire</a>
+							<a href="./Connexion"><img src="./inc/images/connexion.png" class="menuIcon" alt="C"/>Connexion</a>
+						</c:when>
+						<c:otherwise>
+							<t:menuUtilisateur />
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<%-- TODO : Supprimer pour la prod. --%>
+				<t:connexionButton/>
+			</div>
+			
+			<div id="subcontent<c:if test="${ !empty sessionScope.utilisateur }">Connected</c:if>">
+				<t:formulaireDeRecherches criteres="${ criteres }"/>
+				<jsp:doBody/>
+			</div>
+			
+			<c:if test="${ !empty sessionScope.utilisateur }">
+				<t:chat />
+			</c:if>
 		</div>
-		<c:if test="${ !empty sessionScope.utilisateur }">
-			<t:chat />
-		</c:if>
 		<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<script type="text/javascript" src="./inc/js/monjs.js"></script>
 	</body>

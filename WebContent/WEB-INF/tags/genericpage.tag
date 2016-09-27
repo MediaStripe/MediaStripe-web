@@ -16,21 +16,7 @@
 			</a>
 		</p>
 		<div id="content">
-			<div id="menu">
-				<div id="links">
-					<c:choose>
-						<c:when test="${ empty sessionScope.utilisateur }">
-							<a href="./Inscription">S'inscrire</a>
-							<a href="./Connexion"><img src="./inc/images/connexion.png" class="menuIcon" alt="C"/>Connexion</a>
-						</c:when>
-						<c:otherwise>
-							<t:menuUtilisateur />
-						</c:otherwise>
-					</c:choose>
-				</div>
-				<%-- TODO : Supprimer pour la prod. --%>
-				<t:connexionButton/>
-			</div>
+			<t:menuUtilisateur/>
 			
 			<div id="subcontent<c:if test="${ !empty sessionScope.utilisateur }">Connected</c:if>">
 				<t:formulaireDeRecherches criteres="${ criteres }"/>

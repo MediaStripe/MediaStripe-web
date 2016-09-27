@@ -48,14 +48,13 @@ body {
 }
 
 .menuIcon {
-	width: 20px;
-	height: 20px;
+	width: 25px;
+	height: 25px;
 	vertical-align: middle;	
 }
 
-#menu a, #menu a:hover {
-	display: block;
-	padding: 5px;
+#menu a img {
+	margin-right: 10px;
 }
 
 #menu a {
@@ -63,20 +62,21 @@ body {
 }
 
 #menu a:hover {
+	color: #FFF;
 	background-color: #8B60B2;
-}
-
-#menu a img {
-	margin-right: 5px;
 }
 
 #menu a, #menu a:visited {
 	color: #8B60B2;
 }
 
-#menu a:hover {
-	color: #FFF;
+#menu a, #menu a:visited, #menu a:hover {
+	font-weight: bold;
+	text-decoration: none;
+	display: block;
+	padding: 5px;
 }
+
 /* FIN - Menu latéral gauche. */
 
 #subcontent, #subcontentConnected {
@@ -115,7 +115,7 @@ body {
 }
 
 #criteres {
-	width: 700px;
+	width: 650px;
 }
 
 #logo {
@@ -152,6 +152,7 @@ body {
 
 .ligneMedia {
 	padding: 5px 10px;
+	margin: 0px;
 }
 
 p.ligneMedia:hover {

@@ -4,20 +4,20 @@ import static com.imie.business.controls.UtilisateurControls.validationMail;
 import static com.imie.business.controls.UtilisateurControls.validationNom;
 import static com.imie.business.controls.UtilisateurControls.validationPassword;
 import static com.imie.business.controls.UtilisateurControls.validationPrenom;
-import static com.imie.contant.ChampsUtilisateurEnum.MAIL;
-import static com.imie.contant.ChampsUtilisateurEnum.NOM;
-import static com.imie.contant.ChampsUtilisateurEnum.PASSWORD;
-import static com.imie.contant.ChampsUtilisateurEnum.PRENOM;
+import static com.imie.constant.ChampsUtilisateurEnum.MAIL;
+import static com.imie.constant.ChampsUtilisateurEnum.NOM;
+import static com.imie.constant.ChampsUtilisateurEnum.PASSWORD;
+import static com.imie.constant.ChampsUtilisateurEnum.PRENOM;
 
 import java.util.Date;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 
 import com.imie.entities.Utilisateur;
 import com.imie.exceptions.BusinessException;
-import com.imie.services.impl.UtilisateurService;
+import com.imie.services.UtilisateurService;
 
 /**
  * Traitements métier relatifs à l'enregistrement d'un nouvel utilisateur.
@@ -26,9 +26,8 @@ import com.imie.services.impl.UtilisateurService;
  *
  */
 public class InscriptionForm extends AbstractBusiness {
-	// TODO : Corriger l'injection via @EJB
-	@EJB
-	private UtilisateurService utilisateurService = new UtilisateurService();
+	@Inject
+	private UtilisateurService utilisateurService;
 	
 	/**
 	 * Procède aux contrôles métier avant d'effectuer l'enregistrement du nouvel

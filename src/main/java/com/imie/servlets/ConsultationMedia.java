@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.imie.business.ConsultationMediaForm;
-import com.imie.contant.VuesEnum;
+import com.imie.constant.VuesEnum;
 
 /**
  * Servlet implementation class ConsultationVideo

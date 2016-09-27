@@ -1,4 +1,4 @@
-package com.imie.contant;
+package com.imie.constant;
 
 /**
  * Énumération contenant les différentes vues, avec le chemin de leur page JSP.

@@ -8,16 +8,16 @@ import org.junit.Test;
 import com.imie.entities.Fichier;
 import com.imie.entities.Tag;
 import com.imie.entities.Utilisateur;
-import com.imie.services.impl.FichierService;
-import com.imie.services.impl.TagService;
-import com.imie.services.impl.UtilisateurService;
+import com.imie.services.impl.FichierServiceImpl;
+import com.imie.services.impl.TagServiceImpl;
+import com.imie.services.impl.UtilisateurServiceImpl;
 
 public class TestInsertionVideo {
 	@Test
 	public void testInsert() {
-		FichierService fichierService = new FichierService();
-		UtilisateurService utilisateurService = new UtilisateurService();
-		TagService tagService = new TagService();
+		FichierServiceImpl fichierService = new FichierServiceImpl();
+		UtilisateurServiceImpl utilisateurService = new UtilisateurServiceImpl();
+		TagServiceImpl tagService = new TagServiceImpl();
 		String result = "";
 		
 		try {

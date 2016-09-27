@@ -2,15 +2,16 @@ package com.imie.servlets;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.imie.contant.VuesEnum;
+import com.imie.constant.VuesEnum;
 import com.imie.entities.Utilisateur;
-import com.imie.services.impl.UtilisateurService;
+import com.imie.services.UtilisateurService;
 import com.imie.util.SessionUtils;
 
 /**
@@ -22,7 +23,8 @@ public class SuppressionContact extends HttpServlet {
     
 	private static final String VUE = VuesEnum.LISTER_CONTACTS.val();
 	
-	private UtilisateurService utilisateurService = new UtilisateurService();
+	@Inject
+	private UtilisateurService utilisateurService;
 	
     /**
      * @see HttpServlet#HttpServlet()

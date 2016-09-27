@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.imie.business.ModificationUtilisateurForm;
-import com.imie.contant.VuesEnum;
+import com.imie.constant.VuesEnum;
 import com.imie.util.SessionUtils;
 
 /**

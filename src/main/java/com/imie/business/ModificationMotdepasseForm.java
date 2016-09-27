@@ -1,12 +1,12 @@
 package com.imie.business;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import com.imie.business.controls.UtilisateurControls;
 import com.imie.entities.Utilisateur;
 import com.imie.exceptions.BusinessException;
-import com.imie.services.impl.UtilisateurService;
+import com.imie.services.UtilisateurService;
 import com.imie.util.SessionUtils;
 import com.imie.util.StringUtil;
 
@@ -24,9 +24,8 @@ public class ModificationMotdepasseForm extends AbstractBusiness {
 	
 	private static final String ATT_VERIF_MOTDEPASSE = "verificationMotdepasse";
 	
-	// TODO : Corriger l'injection via @EJB
-	@EJB
-	private UtilisateurService utilisateurService = new UtilisateurService();
+	@Inject
+	private UtilisateurService utilisateurService;
 	
 	/**
 	 * Effectue les contrôles de saisie puis effectue la modification du mot de

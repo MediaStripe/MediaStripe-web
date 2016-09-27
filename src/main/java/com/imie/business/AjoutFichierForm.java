@@ -13,12 +13,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
-import com.imie.contant.ApplicationProperties;
+import com.imie.constant.ApplicationProperties;
 import com.imie.entities.Episode;
 import com.imie.entities.Fichier;
 import com.imie.entities.Film;
@@ -28,9 +28,9 @@ import com.imie.entities.Tag;
 import com.imie.entities.Utilisateur;
 import com.imie.entities.Video;
 import com.imie.exceptions.BusinessException;
-import com.imie.services.impl.FichierService;
-import com.imie.services.impl.TagService;
-import com.imie.services.impl.UtilisateurService;
+import com.imie.services.FichierService;
+import com.imie.services.TagService;
+import com.imie.services.UtilisateurService;
 import com.imie.util.RegexUtil;
 import com.imie.util.StringUtil;
 
@@ -59,17 +59,14 @@ public class AjoutFichierForm extends AbstractBusiness {
 		listeExtensions.put("episode", listeExtensions.get("video"));
 	}
 
-	// TODO : Corriger l'injection via @EJB
-	@EJB
-	private FichierService fichierService = new FichierService();
+	@Inject
+	private FichierService fichierService;
 
-	// TODO : Corriger l'injecion via @EJB
-	@EJB
-	private UtilisateurService utilisateurService = new UtilisateurService();
+//	@Inject
+//	private UtilisateurService utilisateurService;
 
-	// TODO : Corriger l'injecion via @EJB
-	@EJB
-	private TagService tagService = new TagService();
+	@Inject
+	private TagService tagService;
 
 	/**
 	 * Procède aux contrôles métier avant d'effectuer l'enregistrement du

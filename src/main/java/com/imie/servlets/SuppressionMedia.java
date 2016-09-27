@@ -2,18 +2,18 @@ package com.imie.servlets;
 
 import java.io.IOException;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.imie.contant.VuesEnum;
+import com.imie.constant.VuesEnum;
 import com.imie.entities.Media;
 import com.imie.entities.Tag;
 import com.imie.entities.Utilisateur;
-import com.imie.services.impl.MediaService;
+import com.imie.services.MediaService;
 import com.imie.util.SessionUtils;
 
 /**
@@ -23,9 +23,8 @@ import com.imie.util.SessionUtils;
 public class SuppressionMedia extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-	// TODO : Corriger l'injection d'EJB
-//	@EJB
-	private MediaService mediaService = new MediaService();
+	@Inject
+	private MediaService mediaService;
 	
 	private static final String VUE = VuesEnum.SUPPRESSION_MEDIA.val();
 	

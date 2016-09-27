@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.imie.business.AjoutFichierForm;
-import com.imie.contant.VuesEnum;
+import com.imie.constant.VuesEnum;
 import com.imie.entities.Fichier;
 import com.imie.util.SessionUtils;
 

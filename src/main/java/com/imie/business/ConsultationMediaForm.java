@@ -1,16 +1,16 @@
 package com.imie.business;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import com.imie.entities.Fichier;
 import com.imie.exceptions.BusinessException;
-import com.imie.services.impl.FichierService;
+import com.imie.services.FichierService;
 import com.imie.util.SessionUtils;
 
 public class ConsultationMediaForm extends AbstractBusiness {
-	// TODO : Corriger l'injection via @EJB
-	// @EJB
-	private FichierService fichierService = new FichierService();
+	@Inject
+	private FichierService fichierService;
 
 	public Fichier getFichier(final HttpServletRequest request) {
 		final Fichier fichier = fichierService.findById(Integer.parseInt(request.getParameter("media")));

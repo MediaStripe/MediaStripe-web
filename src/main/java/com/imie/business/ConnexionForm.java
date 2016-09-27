@@ -1,25 +1,33 @@
 package com.imie.business;
 
-import static com.imie.contant.ChampsUtilisateurEnum.MAIL;
-import static com.imie.contant.ChampsUtilisateurEnum.PASSWORD;
+import static com.imie.constant.ChampsUtilisateurEnum.MAIL;
+import static com.imie.constant.ChampsUtilisateurEnum.PASSWORD;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.imie.entities.Utilisateur;
-import com.imie.services.impl.UtilisateurService;
+import com.imie.services.UtilisateurService;
 import com.imie.util.StringUtil;
 
 public class ConnexionForm extends AbstractBusiness {
 	
 	private static final String RESULT = "result";
 	
-	// TODO : Corriger l'injection via @EJB
-	@EJB
-	private UtilisateurService utilisateurService = new UtilisateurService();
 	
+	private UtilisateurService utilisateurService;
+	
+	@Inject
+	public void setUtilisateurService(UtilisateurService utilisateurService) {
+		this.utilisateurService = utilisateurService;
+	}
+
+	public ConnexionForm() {
+		super();
+	}
+
 	public void connexionUtilisateur(final HttpServletRequest request) {
 		final String mailSaisi = getValeurChamp(request, MAIL.val());
 		final String motDePasseSaisi = getValeurChamp(request, PASSWORD.val());

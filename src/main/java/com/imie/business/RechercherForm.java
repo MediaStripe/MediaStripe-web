@@ -1,26 +1,25 @@
 package com.imie.business;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import com.imie.entities.Media;
 import com.imie.entities.Musique;
 import com.imie.entities.Photo;
 import com.imie.entities.Video;
-import com.imie.services.impl.MediaService;
+import com.imie.services.MediaService;
 
 public class RechercherForm extends AbstractBusiness {
 
-	private static final MediaService mediaService = new MediaService();
+	@Inject
+	private MediaService mediaService;
 
 	public List<Media> rechercher(final HttpServletRequest request) {
-		final List<Media> resultats = new ArrayList<Media>();
-
 		final String criteresRechercheString = getValeurChamp(request, "criteres");
 		final Map<String, Boolean> categories = getCategories(request);
 		final List<String> listeCriteres = Arrays.asList(criteresRechercheString.split(" "));

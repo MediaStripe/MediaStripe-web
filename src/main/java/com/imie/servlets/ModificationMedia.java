@@ -2,6 +2,7 @@ package com.imie.servlets;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.imie.business.ModificationMediaForm;
-import com.imie.contant.VuesEnum;
+import com.imie.constant.VuesEnum;
 import com.imie.entities.Media;
 import com.imie.entities.Tag;
-import com.imie.services.impl.MediaService;
+import com.imie.services.MediaService;
 import com.imie.util.SessionUtils;
 
 /**
@@ -28,7 +29,8 @@ public class ModificationMedia extends HttpServlet {
 
 	private ModificationMediaForm modificationMediaFrom;
 	
-	private MediaService mediaService = new MediaService();
+	@Inject
+	private MediaService mediaService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

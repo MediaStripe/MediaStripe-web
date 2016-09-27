@@ -2,15 +2,15 @@ package com.imie.servlets;
 
 import java.io.IOException;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.imie.contant.VuesEnum;
-import com.imie.services.impl.MediaService;
+import com.imie.constant.VuesEnum;
+import com.imie.services.MediaService;
 
 /**
  * Servlet implementation class Accueil
@@ -22,9 +22,8 @@ public class Accueil extends HttpServlet {
 	/** Page jsp associée à la servlet. */
 	private static final String VUE = VuesEnum.ACCUEIL.val();
 	
-	// TODO : Corriger l'injection d'EJB.
-//	@EJB
-	private MediaService mediaService = new MediaService();
+	@Inject
+	private MediaService mediaService;
 	
     /**
      * @see HttpServlet#HttpServlet()

@@ -2,14 +2,15 @@ package com.imie.servlets;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.imie.contant.VuesEnum;
-import com.imie.services.impl.UtilisateurService;
+import com.imie.constant.VuesEnum;
+import com.imie.services.UtilisateurService;
 
 /**
  * Servlet implementation class ConsultationProfil
@@ -20,14 +21,14 @@ public class ConsultationProfil extends HttpServlet {
 	
 	private static final String VUE = VuesEnum.CONSULTATION_PROFIL.val();
 
-	private UtilisateurService utilisateurService = new UtilisateurService();
+	@Inject
+	private UtilisateurService utilisateurService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ConsultationProfil() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

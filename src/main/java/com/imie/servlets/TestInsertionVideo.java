@@ -16,9 +16,9 @@ import com.imie.entities.Fichier;
 import com.imie.entities.Tag;
 import com.imie.entities.Utilisateur;
 import com.imie.entities.Video;
-import com.imie.services.impl.FichierService;
-import com.imie.services.impl.TagService;
-import com.imie.services.impl.UtilisateurService;
+import com.imie.services.impl.FichierServiceImpl;
+import com.imie.services.impl.TagServiceImpl;
+import com.imie.services.impl.UtilisateurServiceImpl;
 
 /**
  * Servlet implementation class TestInsertionVideo
@@ -27,9 +27,9 @@ import com.imie.services.impl.UtilisateurService;
 public class TestInsertionVideo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private FichierService fichierService = new FichierService();
-	private UtilisateurService utilisateurService = new UtilisateurService();
-	private TagService tagService = new TagService();
+	private FichierServiceImpl fichierService = new FichierServiceImpl();
+	private UtilisateurServiceImpl utilisateurService = new UtilisateurServiceImpl();
+	private TagServiceImpl tagService = new TagServiceImpl();
 
 	private Utilisateur user;
 	

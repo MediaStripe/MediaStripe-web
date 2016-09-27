@@ -1,4 +1,4 @@
-package com.imie.contant;
+package com.imie.constant;
 
 /**
  * Champs du formulaire d'inscription.

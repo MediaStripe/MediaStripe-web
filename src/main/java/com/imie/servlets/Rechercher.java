@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.imie.business.RechercherForm;
-import com.imie.contant.VuesEnum;
+import com.imie.constant.VuesEnum;
 
 /**
  * Servlet implementation class Rechercher

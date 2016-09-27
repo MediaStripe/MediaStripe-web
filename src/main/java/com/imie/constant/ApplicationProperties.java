@@ -1,4 +1,4 @@
-package com.imie.contant;
+package com.imie.constant;
 
 import java.util.HashMap;
 import java.util.Map;

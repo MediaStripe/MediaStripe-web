@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLDecoder;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.imie.entities.Fichier;
 import com.imie.entities.Utilisateur;
-import com.imie.services.impl.FichierService;
+import com.imie.services.FichierService;
 import com.imie.util.RegexUtil;
 
 /**
@@ -32,8 +33,8 @@ public class AccessFichier extends HttpServlet {
 
 	private String repertoire;
 
-	// TODO : Corriger l'injection d'EJB.
-	private static FichierService fichierService = new FichierService();
+	@Inject
+	private FichierService fichierService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

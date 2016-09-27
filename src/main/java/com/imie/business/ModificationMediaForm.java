@@ -1,6 +1,6 @@
 package com.imie.business;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import com.imie.entities.Episode;
@@ -8,30 +8,26 @@ import com.imie.entities.Film;
 import com.imie.entities.Media;
 import com.imie.entities.Tag;
 import com.imie.exceptions.BusinessException;
-import com.imie.services.impl.EpisodeService;
-import com.imie.services.impl.FilmService;
-import com.imie.services.impl.MediaService;
-import com.imie.services.impl.TagService;
+import com.imie.services.EpisodeService;
+import com.imie.services.FilmService;
+import com.imie.services.MediaService;
+import com.imie.services.TagService;
 import com.imie.util.SessionUtils;
 
 public class ModificationMediaForm extends AbstractBusiness {
 	private static final String TAG_SEPARATOR = ";";
 
-	// TODO : Corriger l'injection EJB
-	@EJB
-	private MediaService mediaService = new MediaService();
+	@Inject
+	private MediaService mediaService;
 
-	// TODO : Corriger l'injection EJB
-	@EJB
-	private EpisodeService episodeService = new EpisodeService();
+	@Inject
+	private EpisodeService episodeService;
 
-	// TODO : Corriger l'injection EJB
-	@EJB
-	private FilmService filmService = new FilmService();
+	@Inject
+	private FilmService filmService;
 
-	// TODO : Corriger l'injection EJB
-	@EJB
-	private TagService tagService = new TagService();
+	@Inject
+	private TagService tagService;
 
 	public Media modifierMedia(final HttpServletRequest request) {
 		/*

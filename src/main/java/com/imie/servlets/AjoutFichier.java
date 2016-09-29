@@ -2,6 +2,7 @@ package com.imie.servlets;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -24,6 +25,7 @@ public class AjoutFichier extends HttpServlet {
 
 	private static final String VUE_FORM = VuesEnum.AJOUT_FICHIER.val();
 
+	@Inject
 	private AjoutFichierForm ajoutFichierForm;
 
 	/**
@@ -53,12 +55,6 @@ public class AjoutFichier extends HttpServlet {
 		SessionUtils.checkUtilisateurConnecte(this, request, response);
 
 		request.setCharacterEncoding("UTF-8");
-		
-		/*
-		 * Réinitialisation des valeurs en mémoire au cas où il aurait eû des
-		 * erreurs au précédent passage
-		 */
-		ajoutFichierForm = new AjoutFichierForm();
 
 		final Fichier fichier = ajoutFichierForm.ajouterFichier(request);
 

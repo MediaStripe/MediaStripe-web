@@ -2,6 +2,7 @@ package com.imie.servlets;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,6 +24,7 @@ public class ModificationUtilisateur extends HttpServlet {
 	
 	private static final String VUE_SUCCESS = VuesEnum.MODIF_UTILISATEUR.val();
 
+	@Inject
 	private ModificationUtilisateurForm modificationUtilisateurForm;
 	
     /**
@@ -48,12 +50,6 @@ public class ModificationUtilisateur extends HttpServlet {
 		SessionUtils.checkUtilisateurConnecte(this, request, response);
 
 		request.setCharacterEncoding("UTF-8");
-		
-		/*
-		 * Réinitialisation des valeurs en mémoire au cas où il aurait eû des
-		 * erreurs au précédent passage
-		 */
-		modificationUtilisateurForm = new ModificationUtilisateurForm();
 		
 		modificationUtilisateurForm.modifierUtilisateur(request);
 

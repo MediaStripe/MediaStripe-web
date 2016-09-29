@@ -34,6 +34,8 @@ public class ModificationMotdepasseForm extends AbstractBusiness {
 	 * @param request
 	 */
 	public void modifierMotdepasse(final HttpServletRequest request) {
+		reinit();
+		
 		final Utilisateur utilisateur = SessionUtils.getUtilisateurConnecte(request);
 		
 		final String motdepasseActuel = getValeurChamp(request, ATT_MOTDEPASSE_ACTUEL);

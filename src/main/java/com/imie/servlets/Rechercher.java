@@ -1,6 +1,8 @@
 package com.imie.servlets;
 
 import java.io.IOException;
+
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +22,8 @@ public class Rechercher extends HttpServlet {
 	private static final String PARAM_CRITERES = "criteres";
 	
 	private static final String VUE = VuesEnum.RECHERCHER.val();
-	
+
+	@Inject
 	private RechercherForm rechercherForm;
     /**
      * @see HttpServlet#HttpServlet()
@@ -34,8 +37,6 @@ public class Rechercher extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
-		rechercherForm = new RechercherForm();
 
 		request.setAttribute(PARAM_CRITERES, request.getParameter(PARAM_CRITERES));
 		request.setAttribute("resultats", rechercherForm.rechercher(request));

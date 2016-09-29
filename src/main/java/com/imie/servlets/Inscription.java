@@ -2,6 +2,7 @@ package com.imie.servlets;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,6 +24,7 @@ public class Inscription extends HttpServlet {
 
 	private static final String VUE_SUCCESS =  VuesEnum.CONNEXION.val();
 
+	@Inject
 	private InscriptionForm inscriptionForm;
 
 	/**
@@ -48,12 +50,6 @@ public class Inscription extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
-		/*
-		 * Réinitialisation des valeurs en mémoire au cas où il aurait eû des
-		 * erreurs au précédent passage
-		 */
-		inscriptionForm = new InscriptionForm();
 		
 		final Utilisateur utilisateur = inscriptionForm.creerUtilisateur(request);
 

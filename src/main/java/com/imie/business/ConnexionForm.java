@@ -16,19 +16,16 @@ public class ConnexionForm extends AbstractBusiness {
 	
 	private static final String RESULT = "result";
 	
-	
-	private UtilisateurService utilisateurService;
-	
 	@Inject
-	public void setUtilisateurService(UtilisateurService utilisateurService) {
-		this.utilisateurService = utilisateurService;
-	}
+	private UtilisateurService utilisateurService;
 
 	public ConnexionForm() {
 		super();
 	}
 
 	public void connexionUtilisateur(final HttpServletRequest request) {
+		reinit();
+		
 		final String mailSaisi = getValeurChamp(request, MAIL.val());
 		final String motDePasseSaisi = getValeurChamp(request, PASSWORD.val());
 		

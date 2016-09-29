@@ -37,6 +37,8 @@ public class InscriptionForm extends AbstractBusiness {
 	 * @return
 	 */
 	public Utilisateur creerUtilisateur(final HttpServletRequest request) {
+		reinit();
+		
 		final Utilisateur utilisateur = new Utilisateur();
 
 		utilisateur.setNom(getValeurChamp(request, NOM.val()));

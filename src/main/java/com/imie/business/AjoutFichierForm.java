@@ -30,7 +30,6 @@ import com.imie.entities.Video;
 import com.imie.exceptions.BusinessException;
 import com.imie.services.FichierService;
 import com.imie.services.TagService;
-import com.imie.services.UtilisateurService;
 import com.imie.util.RegexUtil;
 import com.imie.util.StringUtil;
 
@@ -62,9 +61,6 @@ public class AjoutFichierForm extends AbstractBusiness {
 	@Inject
 	private FichierService fichierService;
 
-//	@Inject
-//	private UtilisateurService utilisateurService;
-
 	@Inject
 	private TagService tagService;
 
@@ -75,6 +71,8 @@ public class AjoutFichierForm extends AbstractBusiness {
 	 * @param request
 	 */
 	public Fichier ajouterFichier(final HttpServletRequest request) {
+		reinit();
+		
 		// Création d'un fichier vide;
 		Fichier fichier = new Fichier();
 

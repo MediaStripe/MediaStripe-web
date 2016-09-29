@@ -28,6 +28,8 @@ public class RechercherForm extends AbstractBusiness {
 	}
 
 	private Map<String, Boolean> getCategories(final HttpServletRequest request) {
+		reinit();
+		
 		final Map<String, Boolean> result = new HashMap<String, Boolean>();
 
 		result.put(Photo.class.getSimpleName(), "photo".equals(request.getParameter("photo")));

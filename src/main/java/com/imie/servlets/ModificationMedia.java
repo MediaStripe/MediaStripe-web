@@ -27,6 +27,7 @@ public class ModificationMedia extends HttpServlet {
 
 	private static final String VUE_SUCCESS = VuesEnum.MODIFICATION_MEDIA.val();
 
+	@Inject
 	private ModificationMediaForm modificationMediaFrom;
 	
 	@Inject
@@ -67,12 +68,6 @@ public class ModificationMedia extends HttpServlet {
 		SessionUtils.checkUtilisateurConnecte(this, request, response);
 		
 		request.setCharacterEncoding("UTF-8");
-
-		/*
-		 * Réinitialisation des valeurs en mémoire au cas où il aurait eû des
-		 * erreurs au précédent passage
-		 */
-		modificationMediaFrom = new ModificationMediaForm();
 
 		final Media media = modificationMediaFrom.modifierMedia(request);
 

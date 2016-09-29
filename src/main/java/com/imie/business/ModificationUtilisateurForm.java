@@ -22,7 +22,6 @@ import com.imie.util.SessionUtils;
  *
  */
 public class ModificationUtilisateurForm extends AbstractBusiness {
-
 	@Inject
 	private UtilisateurService utilisateurService;
 	
@@ -34,6 +33,8 @@ public class ModificationUtilisateurForm extends AbstractBusiness {
 	 * @param request
 	 */
 	public void modifierUtilisateur(final HttpServletRequest request) {
+		reinit();
+		
 		final Utilisateur utilisateur = SessionUtils.getUtilisateurConnecte(request);
 		
 		final String nouveauNom = getValeurChamp(request, NOM.val());

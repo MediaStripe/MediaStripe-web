@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/Deconnexion")
 public class Deconnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Chaîne correspondant au mappage de la servlet dont sera redirigé
 	 * l'utilisateur après la destruction de sa session en mémoire. <br/>
@@ -24,22 +24,24 @@ public class Deconnexion extends HttpServlet {
 	 * {@link HttpServletResponse#sendRedirect(String)} /!\</div>
 	 */
 	private static final String VUE = "./Accueil";
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Deconnexion() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public Deconnexion() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		final HttpSession session = request.getSession();
-		
+
 		session.invalidate();
-		
+
 		response.sendRedirect(VUE);
 	}
 

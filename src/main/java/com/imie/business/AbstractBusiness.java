@@ -12,7 +12,7 @@ public abstract class AbstractBusiness {
 	protected String resultat;
 	
 	/** Liste d'erreurs soulevées lors du traitement. */
-	protected Map<String, String> listeErreurs = new HashMap<String, String>();
+	protected Map<String, String> listeErreurs;
 	
 	public String getResultat() {
 		return resultat;
@@ -27,9 +27,20 @@ public abstract class AbstractBusiness {
 	}
 
 	/**
+	 * Réinitialise les données du service métier.
+	 */
+	public void reinit() {
+		resultat = null;
+		listeErreurs = new HashMap<String, String>();
+	}
+	
+	/**
 	 * Enregistre une erreur dans la liste d'erreurs.
-	 * @param champ Le nom du champ dont l'erreur a été générée.
-	 * @param valeur Le message de l'erreur.
+	 * 
+	 * @param champ
+	 *            Le nom du champ dont l'erreur a été générée.
+	 * @param valeur
+	 *            Le message de l'erreur.
 	 */
 	public void setErreur(final String champ, final String valeur) {
 		listeErreurs.put(champ, valeur);
@@ -37,9 +48,12 @@ public abstract class AbstractBusiness {
 	
 	/**
 	 * Retourne la valeur du champ correspondant au nom passé en paramètre.
+	 * 
 	 * @param request
-	 * @param nomChamp Le nom du champ dans la requette.
-	 * @return La valeur du champ ou {@code null} lorsque le champ n'est pas trouvé.
+	 * @param nomChamp
+	 *            Le nom du champ dans la requette.
+	 * @return La valeur du champ ou {@code null} lorsque le champ n'est pas
+	 *         trouvé.
 	 */
 	protected static String getValeurChamp(final HttpServletRequest request, final String nomChamp) {
 		final String valeurChamp = request.getParameter(nomChamp);

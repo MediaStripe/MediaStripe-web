@@ -30,6 +30,8 @@ public class ModificationMediaForm extends AbstractBusiness {
 	private TagService tagService;
 
 	public Media modifierMedia(final HttpServletRequest request) {
+		reinit();
+		
 		/*
 		 * La variable "media" peut être un film ou un épisode, qui ont un
 		 * traitement spécial, et donc la variable va être ammenée à acceuillir

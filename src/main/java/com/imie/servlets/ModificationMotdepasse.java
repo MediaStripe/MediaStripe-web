@@ -2,6 +2,7 @@ package com.imie.servlets;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +21,8 @@ public class ModificationMotdepasse extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private static final String VUE = VuesEnum.MODIF_MOTDEPASSE.val();
-	
+
+	@Inject
 	private ModificationMotdepasseForm modificationMotdepasseForm;
 	
     /**
@@ -46,12 +48,6 @@ public class ModificationMotdepasse extends HttpServlet {
 		SessionUtils.checkUtilisateurConnecte(this, request, response);
 
 		request.setCharacterEncoding("UTF-8");
-		
-		/*
-		 * Réinitialisation des valeurs en mémoire au cas où il aurait eû des
-		 * erreurs au précédent passage
-		 */
-		modificationMotdepasseForm = new ModificationMotdepasseForm();
 		
 		modificationMotdepasseForm.modifierMotdepasse(request);
 		

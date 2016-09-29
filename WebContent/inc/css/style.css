@@ -58,16 +58,13 @@ body {
 }
 
 #menu a {
+	color: #8B60B2;
 	background-color: #FFF;
 }
 
 #menu a:hover {
 	color: #FFF;
 	background-color: #8B60B2;
-}
-
-#menu a, #menu a:visited {
-	color: #8B60B2;
 }
 
 #menu a, #menu a:visited, #menu a:hover {
@@ -131,6 +128,12 @@ body {
 
 .erreur, .required {
 	color: red;
+}
+
+#subcontent fieldset, #subcontentConnected fieldset {
+	margin-bottom: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 #subcontent, #subcontentConnected, #menu, #chat {

@@ -18,7 +18,7 @@ import com.imie.services.UtilisateurService;
 @WebServlet("/ConsultationProfil")
 public class ConsultationProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final String VUE = VuesEnum.CONSULTATION_PROFIL.val();
 
 	@Inject
@@ -40,7 +40,7 @@ public class ConsultationProfil extends HttpServlet {
 		request.setAttribute("utilisateurConsulte",
 				utilisateurService.findById(Integer.parseInt(request.getParameter("utilisateur"))));
 
-		this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
+		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 
 }

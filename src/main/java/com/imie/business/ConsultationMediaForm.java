@@ -13,6 +13,8 @@ public class ConsultationMediaForm extends AbstractBusiness {
 	private FichierService fichierService;
 
 	public Fichier getFichier(final HttpServletRequest request) {
+		reinit();
+		
 		final Fichier fichier = fichierService.findById(Integer.parseInt(request.getParameter("media")));
 		
 		try {

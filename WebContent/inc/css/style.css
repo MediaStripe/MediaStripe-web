@@ -93,7 +93,7 @@ body {
 	width: 300px;
 	background-color: #FFF;
 	float:right;
-	margin-top: -320px
+	margin-top: -210px;
 }
 
 #categories {
@@ -158,11 +158,11 @@ body {
 	margin: 0px;
 }
 
-p.ligneMedia:hover {
+li.ligneMedia:hover {
 	background-color: #8B60B2;
 }
 
-p.ligneMedia:hover .ligneMediaLien, p.ligneMedia:hover .ligneMediaLien {
+li.ligneMedia:hover .ligneMediaLien, li.ligneMedia:hover .ligneMediaLien {
 	color: #FFF;
 	/* text-decoration: underline; */
 }
@@ -177,7 +177,7 @@ p.ligneMedia:hover .ligneMediaLien, p.ligneMedia:hover .ligneMediaLien {
 	font-weight: bold;
 }
 
-p.ligneMedia:hover .publieur, p.ligneMedia:hover .publieur:visited {
+li.ligneMedia:hover .publieur, li.ligneMedia:hover .publieur:visited {
 	color: #FFD696;
 }
 
@@ -193,5 +193,44 @@ p.ligneMedia:hover .publieur, p.ligneMedia:hover .publieur:visited {
 .publieur, .publieur:visited, .publieur:hover {
 	font-size: 11px;
 	font-weight: bold;
-	margin-left: 50px;
+}
+
+ul.listeMedias {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+li.ligneMedia {
+	list-style-type: none;
+}
+
+li.ligneMedia img {
+	float: left;
+	width: 30px;
+	height: 30px;
+	vertical-align: middle;
+	margin-right: 15px;
+}
+
+input[type="submit"], input[type="reset"], input[type="checkbox"], input[type="text"], input[type="email"], input[type="password"] {
+	background-color: #FFF;
+	color: #777;
+}
+
+input[type="submit"]:hover, input[type="reset"]:hover, input[type="checkbox"]:hover {
+	background-color: #8B60B2;
+	color: #FFF;
+}
+
+input[type="submit"], input[type="submit"]:hover, input[type="reset"],
+	input[type="reset"]:hover, input[type="checkbox"], input[type="checkbox"]:hover, input[type="text"], input[type="text"]:hover, input[type="email"], input[type="password"] {
+	border-radius: 3px;
+	border: 1px solid #777;
+	padding: 3px 5px;
+}
+
+.mediaPhoto {
+	max-width: 300px;
+	max-height: 200px;	
 }

@@ -6,7 +6,7 @@
 	description="Booléen indiquant s'il faut afficher le nom du publieur"%>
 <%@ attribute name="espacePerso" required="false" type="java.lang.Boolean"
 	description="Booléen indiquant s'il faut afficher les boutons de modification et de suppression" %>
-<!-- <p class="ligneMedia"> -->
+
 <li class="ligneMedia">
 	<a href="./ConsultationMedia?media=<c:out value="${ media.id }"/>"class="ligneMediaLien">
 		<%-- Définition de l'icone du média --%> 
@@ -21,7 +21,7 @@
 				<c:set scope="page" var="icone" value="icone_video.png" />
 			</c:when>
 		</c:choose>
-		<img src="./inc/images/<c:out value="${ icone }" />" <%--class="mediaIcon"--%> />
+		<img src="./inc/images/<c:out value="${ icone }" />" />
 		<c:out value="${media.titre }" /><br />
 		<c:if test="${ showPublieur }">
 			<a href="./ConsultationProfil?utilisateur=<c:out value="${ media.publieur.id }"/>" class="publieur">
@@ -32,12 +32,11 @@
 	<c:if test="${ espacePerso }">
 		<div class="boutonsGestion">
 			<a href="./ModificationMedia?media=<c:out value="${ media.id }"/>">
-				<img src="./inc/images/editer.png" class="menuIcon" alt="Éditer"/>
+				<img src="./inc/images/editer.png" class="menuIcon" alt="Éditer"/>Modifier
 			</a>
 			<a href="./SuppressionMedia?media=<c:out value="${ media.id }"/>" class="supprimer">
-				<img src="./inc/images/supprimer.png" class="menuIcon" alt="Supprimer"/>
+				<img src="./inc/images/supprimer.png" class="menuIcon" alt="Supprimer"/>Supprimer
 			</a>
 		</div>
 	</c:if>
-<!-- </p> -->
 </li>

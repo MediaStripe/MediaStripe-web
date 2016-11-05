@@ -177,8 +177,13 @@ li.ligneMedia:hover .ligneMediaLien, li.ligneMedia:hover .ligneMediaLien {
 	font-weight: bold;
 }
 
-li.ligneMedia:hover .publieur, li.ligneMedia:hover .publieur:visited {
+li.ligneMedia:hover .publieur, li.ligneMedia:hover .publieur:visited, 
+	li.ligneMedia:hover .boutonsGestion a, li.ligneMedia:hover .boutonGestion a:visited {
 	color: #FFD696;
+}
+
+li.ligneMedia:hover .boutonsGestion a:hover {
+	text-decoration: underline;
 }
 
 .publieur, .publieur:visited {
@@ -203,14 +208,27 @@ ul.listeMedias {
 
 li.ligneMedia {
 	list-style-type: none;
+	min-height: 35px;
 }
 
 li.ligneMedia img {
-	float: left;
-	width: 30px;
-	height: 30px;
+	width: 25px;
+	height: 25px;
 	vertical-align: middle;
-	margin-right: 15px;
+}
+
+.boutonsGestion img {
+	margin-left: 30px;
+	margin-right: 5px;
+}
+
+.boutonsGestion a, .boutonsGestion a:visited {
+	color: #56B277;
+	text-decoration: none;
+}
+
+.boutonsGestion a, .boutonsGestion a:visited, .boutonsGestion a:hover {
+	font-weight: bold;
 }
 
 input[type="submit"], input[type="reset"], input[type="checkbox"], input[type="text"], input[type="email"], input[type="password"] {

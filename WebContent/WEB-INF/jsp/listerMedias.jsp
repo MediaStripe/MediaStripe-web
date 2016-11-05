@@ -10,7 +10,7 @@
 			<c:forEach items="${ sessionScope.utilisateur.medias }" var="media">
 						<c:choose>
 							<c:when test="${ media.isFichier() }">
-								<t:media media="${ media }" showPublieur="false" espacePerso="true" />
+								<t:media media="${ media }" showPublieur="false" espacePerso="true" /> 
 							</c:when>
 							<c:otherwise>
 								<c:out value="${ media.titre }" />

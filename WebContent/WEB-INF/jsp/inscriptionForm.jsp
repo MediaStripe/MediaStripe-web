@@ -33,7 +33,7 @@
 							</label>
 						</td>
 						<td>
-							<input type="mail" name="mail" id="mail" value="<c:out value="${ utilisateur.mail }" />" placeholder="Votre adresse mail" required />
+							<input type="email" name="mail" id="mail" value="<c:out value="${ utilisateur.mail }" />" placeholder="Votre adresse mail" required />
 							<span class="erreur">${ form.listeErreurs['mail'] }</span>
 						</td>
 					</tr>

@@ -17,7 +17,7 @@
 							</label>
 						</td>
 						<td>
-							<input type="text" name="mail" id="mail" value="<c:out value="${ mailSaisi }" />" required/>
+							<input type="email" name="mail" id="mail" value="<c:out value="${ mailSaisi }" />" placeholder="Votre adresse mail" required/>
 						</td>
 					</tr>
 					<tr>
@@ -27,7 +27,7 @@
 							</label>
 						</td>
 						<td>
-							<input type="password" id="password" name="password" required/>
+							<input type="password" id="password" name="password" placeholder="Votre mot de passe" required/>
 						</td>
 					</tr>
 					<tr>

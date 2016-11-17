@@ -64,7 +64,7 @@ public class ModificationUtilisateurForm extends AbstractBusiness {
 		resultat = listeErreurs.isEmpty() ? "Mise à jour effectuée."
 				: "Échec de la mise à jour des informations personnelles.";
 		
-		if(hasErrors()) {
+		if(!hasErrors()) {
 			utilisateur.setNom(nouveauNom);
 			utilisateur.setPrenom(nouveauPrenom);
 			utilisateur.setMail(nouveauMail);

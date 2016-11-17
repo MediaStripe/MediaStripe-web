@@ -18,13 +18,19 @@
 						<td>
 							<input type="text" name="titre" id="titre" value="<c:out value="${ media.titre }" />" required />
 							<span class="erreur">${ form.listeErreurs['titre'] }</span><br />
-							
+						</td>
+					</tr>
+					<tr>
+						<td>
 							<label for="description">Description<t:required/> :</label>
 						</td>
 						<td>
 							<input type="text" name="description" id="description" value="<c:out value="${ media.description }" />"  required />
 							<span class="erreur">${ form.listeErreurs['description'] }</span><br />
-							
+						</td>
+					</tr>
+					<tr>
+						<td>
 							<label for="publique">Publique :</label>
 						</td>
 						<td>

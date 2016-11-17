@@ -42,6 +42,7 @@ public class ChatEndPoint {
 
 			ArrayList<Boolean> contactsConnecte = new ArrayList<Boolean>();
 			for (Utilisateur contact : contacts) {
+				System.out.println("contact : "+contact);
 				Boolean connecte = true;
 				if (userHttpSessions.get(contact.getId().toString()) == null)
 					connecte = false;
@@ -50,14 +51,17 @@ public class ChatEndPoint {
 			s.getUserProperties().put("pseudo", user.getPrenom() + " " + user.getNom());
 			JsonObject json = new JsonObject();
 			json.addProperty("type", "friendList");
-
-			json.addProperty("friends", getListeContacts(user));
-			json.add("userStatusConnected", new Gson().toJsonTree(contactsConnecte).getAsJsonArray());
-			try {
-				s.getBasicRemote().sendText(json.toString());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			
+			String contactList = getListeContacts(user);
+			if(contactList.length() != 0){
+				json.addProperty("friends", getListeContacts(user));
+				json.add("userStatusConnected", new Gson().toJsonTree(contactsConnecte).getAsJsonArray());
+				try {
+					s.getBasicRemote().sendText(json.toString());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 

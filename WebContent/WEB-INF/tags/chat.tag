@@ -1,8 +1,7 @@
 <%@ tag language="java" pageEncoding="ISO-8859-1"%>
 	<div id="chat">
-<!-- 	width: 500px; -->
-		<div id="ChatContent"
-			style="height: 200px; border: 1px solid black; overflow-y: scroll;">
+<!-- 	width: 500px; style="height: 200px; border: 1px solid #CCC; overflow-y: scroll;" -->
+		<div id="ChatContent">
 			<ul class="collection" id="chatMessageContainer">
 			</ul>
 		</div>

@@ -92,7 +92,7 @@ body {
 #chat {
 	width: 300px;
 	background-color: #FFF;
-	float:right;
+ 	float:right;
 	margin-top: -210px;
 }
 
@@ -251,4 +251,13 @@ input[type="submit"], input[type="submit"]:hover, input[type="reset"],
 .mediaPhoto {
 	max-width: 300px;
 	max-height: 200px;	
+}
+
+#ChatContent {
+	height: 200px;
+	border: 1px solid #CCC;
+	overflow-y: scroll;
+}
+#chat ul li {
+    list-style-type: none;
 }

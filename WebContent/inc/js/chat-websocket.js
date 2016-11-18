@@ -1,29 +1,44 @@
+//Connection à la websocket de tchat
 var connectionChat = new WebSocket("ws://" + location.host
-		+ "/MediaStripe-web-0.0.1/testSocket");
+		+ "/MediaStripe-web-0.0.1/tchatSocket");
+
+//Listener sur input text de message 
 document.getElementById("messageInput").addEventListener("keydown",
 		function(e) {
+			//Si "Entrée" est appuyée,on envoie la valeur de l'input text au serveur
 			if (e.keyCode === 13 && this.value !== "") {
 				connectionChat.send(this.value);
 				this.value = "";
 			}
 		});
+
+//Gestion du message reçu (format JSON)
 connectionChat.onmessage = function(event) {
 	var message = JSON.parse(event.data);
+	//Historique de message (lorsque l'on change de page)
 	if (message.type === 'messageHistory') {
 		var tchatHistoryList = message.messageList;
 		for (var ii = 0; ii < tchatHistoryList.length; ii++) {
 			displayMessage(tchatHistoryList[ii]);
 		}
-	} else if (message.type === 'message') {
+	} //Message
+	else if (message.type === 'message') {
 		displayMessage(message.value);
-	} else if (message.type === 'friendList') {
+	} //Liste des contact 
+	else if (message.type === 'friendList') {
 		var listeFriends = message.friends.split(';');
 		displayFriends(listeFriends, message.userStatusConnected);
-	} else if(message.type === 'friendUpdateStatus')
+	} //Mise à jour du statut du contact
+	else if(message.type === 'friendUpdateStatus')
 		updateStatus(message.friendId,message.isConnected);
 	
 }
-
+/**
+ * Met à jour le statut du contact
+ * 
+ * @param id du contact
+ * @param booleen statut connecté
+ */
 function updateStatus(friendId,isConnected) {
 	console.log(typeof isConnected);
 	if(isConnected){
@@ -33,15 +48,21 @@ function updateStatus(friendId,isConnected) {
 		document.getElementById('chatFriend'+friendId).firstChild.style.backgroundColor ='red';
 		
 }
+/**
+ * Affiche un message dans le chat.
+ * 	
+ * @param message à afficher
+ */
 function displayMessage(message) {
 	var li = document.createElement("li");
 	li.className = "collection-item avatar";
 	var span = document.createElement("span");
 	span.innerHTML = message;
-	if (message === 'Vous devez vous connecter pour pouvoir utiliser le chat')
-		span.style.color = 'red';
+	//if (message === 'Vous devez vous connecter pour pouvoir utiliser le chat')
+	//	span.style.color = 'red';
 	li.appendChild(span);
 	document.getElementById("chatMessageContainer").appendChild(li);
+	//On met la scrollbar en position basse
 	document.getElementById("ChatContent").scrollTop = document
 			.getElementById("ChatContent").scrollHeight;
 }

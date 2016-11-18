@@ -19,100 +19,108 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.imie.entities.Utilisateur;
 
-@ServerEndpoint(value = "/testSocket", configurator = GetHttpSessionConfigurator.class)
+@ServerEndpoint(value = "/tchatSocket", configurator = GetHttpSessionConfigurator.class)
 public class ChatEndPoint {
 
+	//Sessions Websocket
 	private static CopyOnWriteArrayList<Session> userSessions;
+	//Sessions HTTP
 	private static Map<String, HttpSession> userHttpSessions;
 
 	@OnOpen
 	public void onOpen(Session s, EndpointConfig config) {
+		//Initialisation des listes
 		if (ChatEndPoint.userSessions == null)
 			userSessions = new CopyOnWriteArrayList<Session>();
 		if (ChatEndPoint.userHttpSessions == null)
 			userHttpSessions = new HashMap<String, HttpSession>();
 
+		
 		Utilisateur user = null;
+		//Récupération de la session HTTP de l'utilisateur connecté
 		HttpSession userSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
-		System.out.println(userSession.getAttribute("utilisateur"));
+		userSessions.add(s);
 		if (userSession.getAttribute("utilisateur") != null) {
 			user = (Utilisateur) userSession.getAttribute("utilisateur");
+			userHttpSessions.put(user.getId().toString(), userSession);
+			//Ajout de l'id et du Nom Prenom du user dans les propriétés de la session
 			s.getUserProperties().put("userId", user.getId().toString());
-			List<Utilisateur> contacts = user.getContacts();
+			s.getUserProperties().put("pseudo", user.getPrenom() + " " + user.getNom());
 
+			//Recherche des contacts connectés
+			List<Utilisateur> contacts = user.getContacts();
 			ArrayList<Boolean> contactsConnecte = new ArrayList<Boolean>();
 			for (Utilisateur contact : contacts) {
-				System.out.println("contact : "+contact);
 				Boolean connecte = true;
 				if (userHttpSessions.get(contact.getId().toString()) == null)
 					connecte = false;
 				contactsConnecte.add(connecte);
 			}
-			s.getUserProperties().put("pseudo", user.getPrenom() + " " + user.getNom());
-			JsonObject json = new JsonObject();
-			json.addProperty("type", "friendList");
-			
-			String contactList = getListeContacts(user);
-			if(contactList.length() != 0){
-				json.addProperty("friends", getListeContacts(user));
-				json.add("userStatusConnected", new Gson().toJsonTree(contactsConnecte).getAsJsonArray());
-				try {
-					s.getBasicRemote().sendText(json.toString());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			//Envoie du message avec la listes des contacts
+			sendFriendList(s, contactsConnecte, user);
+			//Envoie le statut connecté au contact de l'utilisateur
+			sendContactStatus(s, user);
 		}
-
-		userSessions.add(s);
-		if (user != null){
-			userHttpSessions.put(user.getId().toString(), userSession);
-			
-			for (Utilisateur friend : user.getContacts()) {
-				if (userHttpSessions.get(friend.getId().toString()) != null) {
-					JsonObject json = new JsonObject();
-					json.addProperty("type", "friendUpdateStatus");
-					json.addProperty("friendId",s.getUserProperties().get("userId").toString());
-					json.addProperty("isConnected", true);
-					for (Session session : userSessions) {
-						if (session.getUserProperties().get("userId").toString().equals(friend.getId().toString())) {
-							System.out.println("Friend found");
-							try {
-								session.getBasicRemote().sendText(json.toString());
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-
-					}
-
-				}
-			}
-		}
-			
-
-		try {
-			if (userSession.getAttribute("tchatSessionHistory") != null) {
-				@SuppressWarnings("unchecked")
-				ArrayList<String> messageHistory = (ArrayList<String>) userSession.getAttribute("tchatSessionHistory");
-				JsonObject json = new JsonObject();
-				json.addProperty("type", "messageHistory");
-				json.add("messageList", new Gson().toJsonTree(messageHistory).getAsJsonArray());
-				s.getBasicRemote().sendText(json.toString());
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		
-		
-		
-		System.out.println("Utilisateurs connectÃ©s :" + userSessions.size());
+		sendTchatSessionHistory(s, userSession);
 	}
 
+	
+
+	@OnMessage
+	public void handleMessage(String message, Session s) throws IOException {
+		System.out.println(s.getUserProperties().get("utilisateur"));
+		if (s.getUserProperties().containsKey("pseudo")) {
+			for (Session session : userSessions) {
+				//envoi du json contenant le message
+				sendMessage(s, session, message);
+
+				// Ajout du message dans l'historique de la session
+				HttpSession httpSession = userHttpSessions.get(s.getUserProperties().get("userId"));
+				if (httpSession.getAttribute("tchatSessionHistory") == null)
+					httpSession.setAttribute("tchatSessionHistory", new ArrayList<String>());
+				ArrayList<String> messageHistoryList = (ArrayList<String>) httpSession
+						.getAttribute("tchatSessionHistory");
+				messageHistoryList.add(s.getUserProperties().get("pseudo") + " : " + message);
+
+			}
+		}
+	}
+
+	@OnClose
+	public void removeSession(Session s) {
+		HttpSession httpSession = userHttpSessions.get(s.getUserProperties().get("userId"));
+		Utilisateur user = (Utilisateur) httpSession.getAttribute("utilisateur");
+		List<Utilisateur> friends = user.getContacts();
+		sendContactStatusDisconnected(s, user.getContacts());
+
+		userHttpSessions.remove(s.getUserProperties().get("userId"));
+		System.out.println(userHttpSessions.size());
+		userSessions.remove(s);
+
+	}
+	/**
+	 * 
+	 * @param session de l'utilisateur
+	 * @param Liste des statut connecté des contacts de l'utilisateur
+	 * @param utilisateur courant
+	 */
+	public  void sendFriendList(Session session,ArrayList<Boolean>contactsConnecte, Utilisateur user){
+		JsonObject json = new JsonObject();
+		json.addProperty("type", "friendList");
+		String contactList = getListeContacts(user);
+		if(contactList.length() != 0){
+			json.addProperty("friends", getListeContacts(user));
+			json.add("userStatusConnected", new Gson().toJsonTree(contactsConnecte).getAsJsonArray());
+			try {
+				session.getBasicRemote().sendText(json.toString());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
 	private String getListeContacts(final Utilisateur utilisateur) {
 		final StringBuilder listeContact = new StringBuilder();
 
@@ -133,48 +141,14 @@ public class ChatEndPoint {
 
 		return listeContact.toString();
 	}
-
-	@OnMessage
-	public void handleMessage(String message, Session s) throws IOException {
-		System.out.println(s.getUserProperties().get("utilisateur"));
-		if (!s.getUserProperties().containsKey("pseudo")) {
-			for (Session session : userSessions) {
-				if (s.equals(session)) {
-					session.getBasicRemote().sendText("Vous devez vous connecter pour pouvoir utiliser le chat");
-				}
-			}
-		} else {
-			for (Session session : userSessions) {
-				// Creation et envoi du json contenant le message
-				JsonObject json = new JsonObject();
-				json.addProperty("type", "message");
-				json.addProperty("value", s.getUserProperties().get("pseudo") + " : " + message);
-				session.getBasicRemote().sendText(json.toString());
-
-				// Ajout du message dans l'historique de la session
-				HttpSession httpSession = userHttpSessions.get(s.getUserProperties().get("userId"));
-				if (httpSession.getAttribute("tchatSessionHistory") == null)
-					httpSession.setAttribute("tchatSessionHistory", new ArrayList<String>());
-				@SuppressWarnings("unchecked")
-				ArrayList<String> messageHistoryList = (ArrayList<String>) httpSession
-						.getAttribute("tchatSessionHistory");
-				messageHistoryList.add(s.getUserProperties().get("pseudo") + " : " + message);
-
-			}
-		}
-	}
-
-	@OnClose
-	public void removeSession(Session s) {
-		HttpSession httpSession = userHttpSessions.get(s.getUserProperties().get("userId"));
-		Utilisateur user = (Utilisateur) httpSession.getAttribute("utilisateur");
-		List<Utilisateur> friends = user.getContacts();
-		for (Utilisateur friend : friends) {
+	
+	public void sendContactStatus(Session s,Utilisateur user){
+		for (Utilisateur friend : user.getContacts()) {
 			if (userHttpSessions.get(friend.getId().toString()) != null) {
 				JsonObject json = new JsonObject();
 				json.addProperty("type", "friendUpdateStatus");
 				json.addProperty("friendId",s.getUserProperties().get("userId").toString());
-				json.addProperty("isConnected", false);
+				json.addProperty("isConnected", true);
 				for (Session session : userSessions) {
 					if (session.getUserProperties().get("userId").toString().equals(friend.getId().toString())) {
 						System.out.println("Friend found");
@@ -190,10 +164,58 @@ public class ChatEndPoint {
 
 			}
 		}
+	}
+	
+	
+	public void sendContactStatusDisconnected(Session s,List<Utilisateur>contacts){
+		for (Utilisateur contact : contacts) {
+			if (userHttpSessions.get(contact.getId().toString()) != null) {
+				JsonObject json = new JsonObject();
+				json.addProperty("type", "friendUpdateStatus");
+				json.addProperty("friendId",s.getUserProperties().get("userId").toString());
+				json.addProperty("isConnected", false);
+				for (Session session : userSessions) {
+					if (session.getUserProperties().get("userId").toString().equals(contact.getId().toString())) {
+						try {
+							session.getBasicRemote().sendText(json.toString());
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 
-		userHttpSessions.remove(s.getUserProperties().get("userId"));
-		System.out.println(userHttpSessions.size());
-		userSessions.remove(s);
+				}
 
+			}
+		}
+	}
+	
+	public void sendTchatSessionHistory(Session s,HttpSession userSession){
+		try {
+			if (userSession.getAttribute("tchatSessionHistory") != null) {
+				@SuppressWarnings("unchecked")
+				ArrayList<String> messageHistory = (ArrayList<String>) userSession.getAttribute("tchatSessionHistory");
+				JsonObject json = new JsonObject();
+				json.addProperty("type", "messageHistory");
+				json.add("messageList", new Gson().toJsonTree(messageHistory).getAsJsonArray());
+				s.getBasicRemote().sendText(json.toString());
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void sendMessage(Session s, Session contactSession,String message){
+		JsonObject json = new JsonObject();
+		json.addProperty("type", "message");
+		json.addProperty("value", s.getUserProperties().get("pseudo") + " : " + message);
+		try {
+			contactSession.getBasicRemote().sendText(json.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
